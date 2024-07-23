@@ -1,17 +1,26 @@
 using BlogApp.Data;
+using BlogApp.Data.Abstract;
+using BlogApp.Data.Concrete;
 using BlogApp.Data.Concrete.EfCore;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddControllersWithViews();
+
 builder.Services.AddDbContext<BlogAppDbContext>(options=>{
     options.UseSqlite(builder.Configuration.GetConnectionString("sql_connection"));
 });
 
+
+builder.Services.AddScoped<IBlogRepository, EfBlogRepository>();
+
 var app = builder.Build();
+
+app.UseStaticFiles();
 
 SeedData.CreateTestData(app);
 
-app.MapGet("/", () => "Hello World!");
+app.MapDefaultControllerRoute();
 
 app.Run();

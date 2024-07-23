@@ -62,3 +62,7 @@ E:\Full_Stack_Bootcamp\Final_Project\BlogApp\obj\Debug\net7.0\refint\BlogApp.dll
 E:\Full_Stack_Bootcamp\Final_Project\BlogApp\obj\Debug\net7.0\BlogApp.pdb
 E:\Full_Stack_Bootcamp\Final_Project\BlogApp\obj\Debug\net7.0\BlogApp.genruntimeconfig.cache
 E:\Full_Stack_Bootcamp\Final_Project\BlogApp\obj\Debug\net7.0\ref\BlogApp.dll
+E:\Full_Stack_Bootcamp\Final_Project\BlogApp\obj\Debug\net7.0\BlogApp.RazorAssemblyInfo.cache
+E:\Full_Stack_Bootcamp\Final_Project\BlogApp\obj\Debug\net7.0\BlogApp.RazorAssemblyInfo.cs
+E:\Full_Stack_Bootcamp\Final_Project\BlogApp\bin\Debug\net7.0\libman.json
+E:\Full_Stack_Bootcamp\Final_Project\BlogApp\bin\Debug\net7.0\BlogApp.staticwebassets.runtime.json
