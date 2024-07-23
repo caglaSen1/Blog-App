@@ -22,11 +22,11 @@ namespace BlogApp.Data.Concrete.EfCore
                 if (!context.Tags.Any())
                 {
                     context.Tags.AddRange(
-                        new Tag { Name = "web prograglama" },
-                        new Tag { Name = "full-stack" },
-                        new Tag { Name = "game" },
-                        new Tag { Name = "backend" },
-                        new Tag { Name = "frontend" }
+                        new Tag { Url = "web-programlama", Name = "web prograglama", Color = TagColors.primary },
+                        new Tag { Url = "full-stack", Name = "full-stack", Color = TagColors.secondary },
+                        new Tag { Url = "game", Name = "game", Color = TagColors.success },
+                        new Tag { Url = "backend", Name = "backend", Color = TagColors.danger },
+                        new Tag { Url = "frontend", Name = "frontend", Color = TagColors.info }
                     );
                     context.SaveChanges();
                 }
@@ -45,9 +45,11 @@ namespace BlogApp.Data.Concrete.EfCore
                     context.Blogs.AddRange(
                         new Blog
                         {
+                            Url = "asp-net-core",
                             Title = "Asp.net Core",
                             Content = "asp.net core güzel bir kütüphanedir.",
-                            Image = "1.jpg",
+                            Description = "Asp.net core güzel bir kütüphanedir.",
+                            Image = "1.png",
                             CreatedAt = DateTime.Now.AddDays(-15),
                             IsActive = true,
                             Tags = context.Tags.Take(3).ToList(),
@@ -55,9 +57,11 @@ namespace BlogApp.Data.Concrete.EfCore
                         },
                         new Blog
                         {
+                            Url = "unity-ile-oyun-gelistirme",
                             Title = "Unity ile oyun geliştirme",
                             Content = "Unity editörü ile oyunlar geliştirebilirsiniz.",
-                            Image = "2.jpg",
+                            Description = "Unity editörü ile oyunlar geliştirebilirsiniz.",
+                            Image = "2.png",
                             CreatedAt = DateTime.Now.AddDays(-10),
                             IsActive = true,
                             Tags = context.Tags.Take(2).ToList(),
@@ -65,9 +69,11 @@ namespace BlogApp.Data.Concrete.EfCore
                         },
                         new Blog
                         {
+                            Url = "full-stack-developer-olmak",
                             Title = "Full Stack Developer Olmak",
                             Content = "Full Stack Developer Olmak Güzeldir.",
-                            Image = "3.jpg",
+                            Description = "Full Stack Developer Olmak Güzeldir.",
+                            Image = "3.png",
                             CreatedAt = DateTime.Now.AddDays(-5),
                             IsActive = true,
                             Tags = context.Tags.Take(4).ToList(),

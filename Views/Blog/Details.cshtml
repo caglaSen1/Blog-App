@@ -1,0 +1,26 @@
+@model Blog
+
+<div class="row">
+    <div class="col-lg-8">
+        <div class="card">
+            <div class="card-header">
+                <h1 class="h4">@Model.Title</h1>
+            </div>
+            <div class="tags">
+                @foreach (var tag in Model.Tags)
+                {
+                    <a href="/blog/tag/@tag.Url" class="badge bg-@tag.Color bg-opacity-5 text-white mb-2 fw-bold">@tag.Name</a> 
+                }
+            </div>
+            <img src="~/img/@Model.Image" class="img-fluid rounded" alt="">
+            <div>@Model.Content</div>
+        </div>
+        <br>
+
+
+    </div>
+    <div class="col-lg-4">
+        <vc:tags-menu></vc:tags-menu>
+        <vc:new-blogs></vc:new-blogs>
+    </div>
+</div>

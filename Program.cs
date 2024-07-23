@@ -8,7 +8,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
 
-builder.Services.AddDbContext<BlogAppDbContext>(options=>{
+builder.Services.AddDbContext<BlogAppDbContext>(options =>
+{
     options.UseSqlite(builder.Configuration.GetConnectionString("sql_connection"));
 });
 
@@ -22,6 +23,18 @@ app.UseStaticFiles();
 
 SeedData.CreateTestData(app);
 
-app.MapDefaultControllerRoute();
+app.MapControllerRoute(
+    name: "blog_details",
+    pattern: "blog/{url}",
+    defaults: new { controller = "Blog", action = "Details" });
+
+app.MapControllerRoute(
+name: "blog_by_tag",
+pattern: "blog/tag/{tagUrl}",
+defaults: new { controller = "Blog", action = "List" });
+
+app.MapControllerRoute(
+    name: "default",
+    pattern: "{controller=Blog}/{action=Index}/{id?}");
 
 app.Run();

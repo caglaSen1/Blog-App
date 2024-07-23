@@ -13,7 +13,7 @@ namespace BlogApp.ViewComponents{
         }
 
         public async Task<IViewComponentResult> InvokeAsync(){
-            return View(await _tagRepository.GetAll.ToListAsync());
+            return View(await _tagRepository.GetAll().ToListAsync());
         }
     }
 }
