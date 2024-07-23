@@ -1,4 +1,5 @@
 using BlogApp.Data.Abstract;
+using BlogApp.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BlogApp.Controllers
@@ -15,7 +16,12 @@ namespace BlogApp.Controllers
         
         public IActionResult Index()
         {
-            return View(_blogRepository.GetAll);
+            return View(
+                new BlogViewModel
+                {
+                    Blogs = _blogRepository.GetAll.ToList()
+                }
+            );
         }
     }
 }
