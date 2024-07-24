@@ -10,6 +10,6 @@ namespace BlogApp.Data.Abstract
         
         Task<Blog> GetByUrl(string url);
 
-        void Add(Blog entity);
+        void Add(Blog blog);
     }
 }

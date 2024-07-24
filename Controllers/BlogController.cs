@@ -1,4 +1,6 @@
+using System.Security.Claims;
 using BlogApp.Data.Abstract;
+using BlogApp.Entity;
 using BlogApp.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,11 +10,15 @@ namespace BlogApp.Controllers
     public class BlogController : Controller
     {
         private readonly IBlogRepository _blogRepository;
+
+        private readonly ICommentRepository _commentRepository;
+
         private readonly ITagRepository _tagRepository;
 
-        public BlogController(IBlogRepository blogRepository, ITagRepository tagRepository)
+        public BlogController(IBlogRepository blogRepository, ICommentRepository commentRepository, ITagRepository tagRepository)
         {
             _blogRepository = blogRepository;
+            _commentRepository = commentRepository;
             _tagRepository = tagRepository;
         }
 
@@ -155,19 +161,30 @@ namespace BlogApp.Controllers
                 blogs = blogs.Where(b => b.Tags.Any(t => t.Url == tagUrl)).ToList();
             }
 
-            foreach (var blog in blogs)
-            {
-                // blogların adını yazdır
-                Console.WriteLine(blog.Tags);
-
-            }
-
 
             return View(new BlogViewModel
             {
                 Blogs = blogs
             });
 
+        }
+
+        [HttpPost]
+        public JsonResult AddComment(int BlogId,string Text){
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var username = User.FindFirstValue(ClaimTypes.Name);
+            var avatar = User.FindFirstValue(ClaimTypes.UserData);
+            
+            var comment = new Comment(Text, BlogId, int.Parse(userId ?? ""));
+
+            _commentRepository.CreateComment(comment);
+            
+            return Json(new{
+                username,
+                Text,
+                comment.CreatedAt,
+                avatar
+            });
         }
 
 /*

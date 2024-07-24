@@ -16,6 +16,8 @@ builder.Services.AddDbContext<BlogAppDbContext>(options =>
 
 builder.Services.AddScoped<IBlogRepository, EfBlogRepository>();
 builder.Services.AddScoped<ITagRepository, EfTagRepository>();
+builder.Services.AddScoped<ICommentRepository, EfCommentRepository>();
+builder.Services.AddScoped<IUserRepository, EfUserRepository>();
 
 var app = builder.Build();
 
@@ -30,8 +32,13 @@ pattern: "blog/create",
 defaults: new { controller = "Blog", action = "Create" });*/
 
 app.MapControllerRoute(
+    name: "user/login",
+    pattern: "user/login",
+    defaults: new { controller = "User", action = "Login" });
+
+app.MapControllerRoute(
     name: "blog_details",
-    pattern: "blog/{url}",
+    pattern: "blog/details/{url}",
     defaults: new { controller = "Blog", action = "Details" });
 
 app.MapControllerRoute(

@@ -24,6 +24,8 @@ namespace BlogApp.Data.Concrete
         {
             Blog blog = await _context.Blogs
             .Include(b => b.Tags)
+            .Include(b => b.Comments)
+            .ThenInclude(c => c.User)
             .FirstOrDefaultAsync(b => b.Id == id)
                          ?? throw new KeyNotFoundException($"A blog with the ID {id} was not found.");
             return blog;
@@ -33,14 +35,16 @@ namespace BlogApp.Data.Concrete
         {
             Blog blog = await _context.Blogs
             .Include(b => b.Tags)
+            .Include(b => b.Comments)
+            .ThenInclude(c => c.User)
             .FirstOrDefaultAsync(b => b.Url == url)
                          ?? throw new KeyNotFoundException($"A blog with the URL {url} was not found.");
             return blog;
         }
 
-        public void Add(Blog entity)
+        public void Add(Blog blog)
         {
-            _context.Blogs.Add(entity);
+            _context.Blogs.Add(blog);
             _context.SaveChanges();
         }
 
