@@ -31,7 +31,7 @@
                                 <div>
                                     <div class="mb-2 d-flex">
                                         <h6 class="me-2">@comment.User.UserName</h6>
-                                        <small>@comment.CreatedAt.ToString("G")</small>
+                                        <small>@comment.CreatedAt.ToString("d")</small>
                                     </div>
                                     <p>@comment.Text</p>
                                 </div>
@@ -57,7 +57,7 @@
                     }
                     else
                     {
-                        <p>Yorum yapabilmek için giriş yapınız. <a href="/users/login">Login</a></p>
+                        <p>Yorum yapabilmek için giriş yapınız. <a href="/user/login">Login</a></p>
                     }
 
                 </div>
@@ -81,31 +81,32 @@
                     url: '@Url.Action("AddComment")',
                     dataType: 'json',
                     data: {
-                        Id: $('#BlogId').val(),
-                        UserName: $('#UserName').val(),
-                        Text: $('#Text').val(),
+                        blogId: $('#BlogId').val(),
+                        text: $('#Text').val()
                     },
-                    success: function (comment) {
-                        var date = new Date(comment.CratedAt);
+                    success: function (json) {
+                        var date = new Date(json.commentTime);
 
                         $("#comment").append(`
-                                <div class="my-4 d-flex">
-                                <img src="/img/${comment.avatar}" class="avatar rounded-circle float-start me-3" alt="">
-                                <div>
-                                <div class="mb-2 d-flex">
-                                    <h6 class="me-2">${comment.UserName}</h6>
-                                    <small>${date.toLocaleDateString()}</small>
-                                </div>
-                                <p>${comment.Text}</p>
-                            </div>
-                                </div>                        
-                            `);
+                                        <div class="my-4 d-flex">
+                                        <img src="/img/${json.userImage}" class="avatar rounded-circle float-start me-3" alt="">
+                                        <div>
+                                        <div class="mb-2 d-flex">
+                                            <h6 class="me-2">${json.userName}</h6>
+                                            <small>${date.toLocaleDateString()}</small>
+                                        </div>
+                                        <p>${json.text}</p>
+                                    </div>
+                                        </div>                        
+                                    `);
 
-                        $("#UserName").val('');
                         $("#Text").val('');
 
                         var count = parseInt($("#commentCount").text());
                         $("#commentCount").text(count + 1);
+                    },
+                    error: function (error) {
+                        alert("Yorum eklenirken bir hata oluştu.");
                     }
                 });
 

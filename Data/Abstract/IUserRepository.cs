@@ -6,9 +6,11 @@ namespace BlogApp.Data.Abstract{
 
         Task<List<User>> GetAll();
 
-        Task<User> GetById(int id);
+        Task<User?> GetById(int id);
 
-        Task<User> GetByEmail(string email);
+        Task<User?> GetByEmail(string email);
+
+        Task<User?> GetByEmailAndPassword(string email, string password);
 
         void CreateUser(User user);
     }
