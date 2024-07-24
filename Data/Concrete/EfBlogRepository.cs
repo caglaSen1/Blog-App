@@ -13,9 +13,9 @@ namespace BlogApp.Data.Concrete
             _context = context;
         }
 
-        public IQueryable<Blog> GetAll()
+        public async Task<List<Blog>> GetAll()
         {
-            return _context.Blogs;
+            return await _context.Blogs.ToListAsync();
         }
 
         public async Task<Blog> GetById(int id)

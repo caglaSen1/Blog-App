@@ -4,7 +4,7 @@ namespace BlogApp.Data.Abstract
 {
     public interface IBlogRepository
     {
-        IQueryable<Blog> GetAll();
+        Task<List<Blog>> GetAll();
 
         Task<Blog> GetById(int id);
         

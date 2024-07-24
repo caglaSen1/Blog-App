@@ -14,15 +14,22 @@ namespace BlogApp.Data.Concrete
             _context = context;
         }
 
-        public IQueryable<Tag> GetAll()
+        public async Task<List<Tag>> GetAll()
         {
-            return _context.Tags;
+            return await _context.Tags.ToListAsync();
         }
 
         public async Task<Tag> GetByName(string name)
         {
             Tag tag = await _context.Tags.FirstOrDefaultAsync(t => t.Name == name)
                         ?? throw new KeyNotFoundException($"A tag with the name {name} was not found.");
+            return tag;
+        }
+
+        public async Task<Tag> GetById(int id)
+        {
+            Tag tag = await _context.Tags.FindAsync(id)
+                        ?? throw new KeyNotFoundException($"A tag with the id {id} was not found.");
             return tag;
         }
 

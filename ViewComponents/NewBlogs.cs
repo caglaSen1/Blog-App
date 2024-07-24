@@ -17,9 +17,9 @@ namespace BlogApp.ViewComponents
 
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            return View(await _blogRepository.GetAll().
-                OrderByDescending(b => b.CreatedAt).
-                Take(5).ToListAsync());
+            var blogs = await _blogRepository.GetAll();
+            var newBlogs = blogs.OrderByDescending(b => b.CreatedAt).Take(5).ToList();
+            return View(newBlogs);
         }
     }
 }

@@ -1,0 +1,52 @@
+@model BlogCreateViewModel
+
+<h2>Blog Oluşturun</h2>
+<hr>
+<form asp-controller="Blog" asp-action="Create" method="post" enctype="multipart/form-data">
+    <div class="row">
+        <div class="col-lg-8">
+
+            <div class="mb-3">
+                <label asp-for="Blog.Title" class="form-label">Başlık</label>
+                <input asp-for="Blog.Title" class="form-control">
+            </div>
+            <div class="mb-3">
+                <label asp-for="Blog.Description" class="form-label">Açıklama</label>
+                <input asp-for="Blog.Description" class="form-control">
+            </div>
+            <div class="mb-3">
+                <label asp-for="Blog.Content" for="exampleFormControlTextarea1" class="form-label">İçerik</label>
+                <textarea asp-for="Blog.Content" class="form-control" id="exampleFormControlTextarea1"
+                    rows="15"></textarea>
+            </div>
+        </div>
+        <div class="col-lg-4">
+
+            <div class="mb-3">
+                <label asp-for="Blog.Image" class="form-label">Görsel</label>
+                <input type="file" name="imageFile" id="imageFile" class="form-control">
+            </div>
+            <!--
+            <div class="mb-3">Etiketler
+                <div class="card">
+                    <div class="card-body">
+                        <ul class="list-inline d-flex flex-wrap gap-2">
+                            for (int i = 0; i < Model.Tags.Count; i++)
+                            {
+                                <li class="list-inline-item">
+                                    <input asp-for="Model.Tags[i].IsSelected" class="form-check-input" type="checkbox"
+                                        value="Model.Tags[i].Id" id="tag_Model.Tags[i].Id" />
+                                        <input type="hidden" asp-for="Tags[i].Id" />
+                                    <label class="form-check-label" for="tag_Model.Tags[i].Id">Model.Tags[i].Name</label>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </div>-->
+            <button type="submit" class="btn btn-success">Kaydet</button>
+        </div>
+    </div>
+
+
+</form>
