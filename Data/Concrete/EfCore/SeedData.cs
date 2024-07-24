@@ -1,5 +1,6 @@
 using BlogApp.Entity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.VisualBasic;
 
 namespace BlogApp.Data.Concrete.EfCore
 {
@@ -22,11 +23,11 @@ namespace BlogApp.Data.Concrete.EfCore
                 if (!context.Tags.Any())
                 {
                     context.Tags.AddRange(
-                        new Tag { Url = "web-programlama", Name = "web prograglama", Color = TagColors.primary },
-                        new Tag { Url = "full-stack", Name = "full-stack", Color = TagColors.secondary },
-                        new Tag { Url = "game", Name = "game", Color = TagColors.success },
-                        new Tag { Url = "backend", Name = "backend", Color = TagColors.danger },
-                        new Tag { Url = "frontend", Name = "frontend", Color = TagColors.info }
+                        new Tag("web prograglama", TagColors.primary),
+                        new Tag("full-stack", TagColors.secondary),
+                        new Tag("game", TagColors.success),
+                        new Tag("backend", TagColors.danger),
+                        new Tag("frontend", TagColors.info)
                     );
                     context.SaveChanges();
                 }
@@ -34,52 +35,30 @@ namespace BlogApp.Data.Concrete.EfCore
                 if (!context.Users.Any())
                 {
                     context.Users.AddRange(
-                        new User { UserName = "ahmetkaya" },
-                        new User { UserName = "sinankarabulut" }
+                        new User("ahmetkaya", "Ahmet", "Kaya" , "kaya@gmail.com", "123456", null),
+                        new User("sinankarabulut", "Sinan", "Karabulut", "kaya@gmail.com", "123456", null)
                     );
                     context.SaveChanges();
                 }
 
                 if (!context.Blogs.Any())
                 {
-                    context.Blogs.AddRange(
-                        new Blog
-                        {
-                            Url = "asp-net-core",
-                            Title = "Asp.net Core",
-                            Content = "asp.net core güzel bir kütüphanedir.",
-                            Description = "Asp.net core güzel bir kütüphanedir.",
-                            Image = "1.png",
-                            CreatedAt = DateTime.Now.AddDays(-15),
-                            IsActive = true,
-                            Tags = context.Tags.Take(3).ToList(),
-                            UserId = 1
-                        },
-                        new Blog
-                        {
-                            Url = "unity-ile-oyun-gelistirme",
-                            Title = "Unity ile oyun geliştirme",
-                            Content = "Unity editörü ile oyunlar geliştirebilirsiniz.",
-                            Description = "Unity editörü ile oyunlar geliştirebilirsiniz.",
-                            Image = "2.png",
-                            CreatedAt = DateTime.Now.AddDays(-10),
-                            IsActive = true,
-                            Tags = context.Tags.Take(2).ToList(),
-                            UserId = 2
-                        },
-                        new Blog
-                        {
-                            Url = "full-stack-developer-olmak",
-                            Title = "Full Stack Developer Olmak",
-                            Content = "Full Stack Developer Olmak Güzeldir.",
-                            Description = "Full Stack Developer Olmak Güzeldir.",
-                            Image = "3.png",
-                            CreatedAt = DateTime.Now.AddDays(-5),
-                            IsActive = true,
-                            Tags = context.Tags.Take(4).ToList(),
-                            UserId = 1
-                        }
-                    );
+                    var Tags = context.Tags.ToList();
+
+                    var Blog1 = new Blog("Asp.net Core", "asp.net core güzel bir kütüphanedir.", "Asp.net core güzel bir kütüphanedir.", "1.png", 1);
+
+                    Blog1.Tags.AddRange(Tags.Take(3).ToList());
+
+                    var Blog2 = new Blog("Unity ile oyun geliştirme", "Unity editörü ile oyunlar geliştirebilirsiniz.", "Unity editörü ile oyunlar geliştirebilirsiniz.", "2.png", 2);
+
+                    Blog2.Tags.AddRange(Tags.Take(2).ToList());
+
+                    var Blog3 = new Blog("Full Stack Developer Olmak", "Full Stack Developer Olmak Güzeldir.", "Full Stack Developer Olmak Güzeldir.", "3.png", 1);
+
+                    Blog3.Tags.AddRange(Tags.Take(4).ToList());
+
+                    context.Blogs.AddRange(Blog1, Blog2, Blog3);
+
                     context.SaveChanges();
                 }
             }

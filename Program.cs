@@ -23,10 +23,11 @@ app.UseStaticFiles();
 
 SeedData.CreateTestData(app);
 
+/*
 app.MapControllerRoute(
 name: "blog_create",
 pattern: "blog/create",
-defaults: new { controller = "Blog", action = "Create" });
+defaults: new { controller = "Blog", action = "Create" });*/
 
 app.MapControllerRoute(
     name: "blog_details",
@@ -37,6 +38,11 @@ app.MapControllerRoute(
 name: "blog_by_tag",
 pattern: "blog/tag/{tagUrl}",
 defaults: new { controller = "Blog", action = "List" });
+
+app.MapControllerRoute(
+name: "blog_delete",
+pattern: "blog/delete/{url}",
+defaults: new { controller = "Blog", action = "Delete" });
 
 app.MapControllerRoute(
     name: "default",

@@ -1,6 +1,5 @@
 using BlogApp.Data.Abstract;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace BlogApp.ViewComponents{
 

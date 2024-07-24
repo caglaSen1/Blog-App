@@ -1,9 +1,6 @@
 using BlogApp.Data.Abstract;
-using BlogApp.Entity;
 using BlogApp.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
 
 namespace BlogApp.Controllers
 {
@@ -19,6 +16,7 @@ namespace BlogApp.Controllers
             _tagRepository = tagRepository;
         }
 
+/*
         public async Task<IActionResult> Create()
         {
             var tags = await _tagRepository.GetAll();
@@ -43,7 +41,7 @@ namespace BlogApp.Controllers
                 if (imageFile.Length > maxFileSize)
                 {
                     ModelState.AddModelError("imageFile", $"Dosya boyutu {maxFileSize / 1024} MB'dan küçük olmalıdır.");
-                }*/
+                }
 
                 var extension = Path.GetExtension(imageFile.FileName).ToLowerInvariant();
 
@@ -95,7 +93,7 @@ namespace BlogApp.Controllers
                 // TODO:
                 model.Blog.UserId = 1;
 
-                /*
+                
                                 var selectedTags = model.Tags.Where(t => t.IsSelected).ToList();
                                 foreach (var tagViewModel in selectedTags)
                                 {
@@ -104,7 +102,7 @@ namespace BlogApp.Controllers
                                     {
                                         model.Blog.Tags.Add(tag);
                                     }
-                                }*/
+                                }
 
 
                 _blogRepository.Add(model.Blog);
@@ -139,7 +137,7 @@ namespace BlogApp.Controllers
             }
 
             return View(model);
-        }
+        }*/
 
         public async Task<IActionResult> Details(string url)
         {
@@ -157,6 +155,13 @@ namespace BlogApp.Controllers
                 blogs = blogs.Where(b => b.Tags.Any(t => t.Url == tagUrl)).ToList();
             }
 
+            foreach (var blog in blogs)
+            {
+                // blogların adını yazdır
+                Console.WriteLine(blog.Tags);
+
+            }
+
 
             return View(new BlogViewModel
             {
@@ -165,5 +170,41 @@ namespace BlogApp.Controllers
 
         }
 
+/*
+        public IActionResult Delete(string url)
+    {
+        if (url == null)
+        {
+            return NotFound();
+        }
+
+        var blog = _blogRepository.GetByUrl(url);
+
+        if (blog == null)
+        {
+            return NotFound();
+        }
+
+        return View("DeleteConfirm", blog);
+    }
+
+    [HttpPost]
+    public IActionResult Delete(int id, int ProductId)
+    {
+        if (id != ProductId)
+        {
+            return NotFound();
+        }
+
+        var bootcamp = Repository.GetProductById(id);
+
+        if (bootcamp == null)
+        {
+            return NotFound();
+        }
+
+        Repository.DeleteProduct(bootcamp);
+        return RedirectToAction("Index");
+    }*/
     }
 }

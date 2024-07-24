@@ -15,7 +15,9 @@ namespace BlogApp.Data.Concrete
 
         public async Task<List<Blog>> GetAll()
         {
-            return await _context.Blogs.ToListAsync();
+            return await _context.Blogs
+            .Include(b => b.Tags)
+            .ToListAsync();
         }
 
         public async Task<Blog> GetById(int id)
