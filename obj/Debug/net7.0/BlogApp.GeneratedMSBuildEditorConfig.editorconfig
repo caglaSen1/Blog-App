@@ -42,8 +42,8 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQmxvZ1xNYW5hZ2UuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/Full_Stack_Bootcamp/Final_Project/BlogApp/Views/Blog/_Filter.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQmxvZ1xfRmlsdGVyLmNzaHRtbA==
+[E:/Full_Stack_Bootcamp/Final_Project/BlogApp/Views/Blog/_FilterandSearch.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQmxvZ1xfRmlsdGVyYW5kU2VhcmNoLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [E:/Full_Stack_Bootcamp/Final_Project/BlogApp/Views/Shared/Components/NewBlogs/Default.cshtml]
@@ -60,6 +60,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [E:/Full_Stack_Bootcamp/Final_Project/BlogApp/Views/User/Login.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxMb2dpbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Full_Stack_Bootcamp/Final_Project/BlogApp/Views/User/Register.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxSZWdpc3Rlci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [E:/Full_Stack_Bootcamp/Final_Project/BlogApp/Views/_ViewImports.cshtml]

@@ -1,0 +1,49 @@
+@model IEnumerable<Tag>
+
+<div class="container">
+    <div class="row">
+        <!-- Filtreleme Formu -->
+        <div class="col-lg-6">
+            <div class="card card-body my-3">
+                <form action="@ViewBag.FormAction" method="get">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-10">
+                                <select class="form-select" name="tagUrl">
+                                    <option value="">Tüm Etiketler</option>
+                                    @foreach (var tag in Model)
+                                    {
+                                        <option value="@tag.Url">@tag.Name</option>
+                                    }
+                                </select>
+                            </div>
+                            <div class="col-md-2">
+                                <button type="submit" class="btn btn-secondary">Filtrele</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Arama Formu -->
+        <div class="col-lg-6">
+            <div class="card card-body my-3">
+                <form action="@ViewBag.FormAction" method="get" role="search">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-10">
+                                <input type="search" class="form-control form-control-dark" placeholder="Ara..."
+                                    aria-label="Search" name="searchString">
+                            </div>
+                            <div class="col-md-2">
+                                <button class="btn btn-secondary" type="submit">Ara</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
