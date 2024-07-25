@@ -1,5 +1,6 @@
 using System.Security.Claims;
 using BlogApp.Data.Abstract;
+using BlogApp.Entity;
 using BlogApp.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -17,6 +18,12 @@ namespace BlogApp.Controllers
             _userRepository = userRepository;
         }
 
+        public async Task<IActionResult> Logout()
+        {
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            return RedirectToAction("Login");
+        }
+
         public IActionResult Login()
         {
             if (User.Identity!.IsAuthenticated)
@@ -24,12 +31,6 @@ namespace BlogApp.Controllers
                 return RedirectToAction("List", "Blog");
             }
             return View();
-        }
-
-        public async Task<IActionResult> Logout()
-        {
-            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-            return RedirectToAction("Login");
         }
 
         [HttpPost]
@@ -77,10 +78,34 @@ namespace BlogApp.Controllers
 
         public IActionResult Register()
         {
-            
             return View();
         }
 
-        
+        [HttpPost]
+        public async Task<IActionResult> Register(RegisterViewModel model)
+        {
+
+            if (ModelState.IsValid)
+            {
+                if (await _userRepository.GetByUserName(model.UserName) != null)
+                {
+                    ModelState.AddModelError("", "Bu kullanıcı adı kullanımda.");
+                    return View(model);
+                }
+                else if (await _userRepository.GetByEmail(model.Email) != null)
+                {
+                    ModelState.AddModelError("", "Bu email adresi kullanımda.");
+                    return View(model);
+                }
+                else
+                {
+                    _userRepository.CreateUser(new User(model.UserName, model.FirstName, model.LastName, model.Email, model.Password, null));
+
+                    return RedirectToAction("Login");
+                }
+            }else{
+                return View(model);
+            }
+        }
     }
 }

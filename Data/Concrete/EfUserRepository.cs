@@ -45,6 +45,19 @@ namespace BlogApp.Data.Concrete
             return null;
         }
 
+        public async Task<User?> GetByUserName(string userName)
+        {
+            User? user = await _context.Users
+            .FirstOrDefaultAsync(u => u.UserName == userName);
+
+            if (user != null)
+            {
+                return user;
+            }
+
+            return null;
+        }
+
         public async Task<User?> GetByEmailAndPassword(string email, string password)
         {
             User? user = await _context.Users
@@ -58,12 +71,24 @@ namespace BlogApp.Data.Concrete
             return null;
         }
 
+        public async Task<User?> GetByEmailAndUserName(string email, string userName)
+        {
+            User? user = await _context.Users
+            .FirstOrDefaultAsync(u => u.Email == email || u.UserName == userName);
+
+            if (user != null)
+            {
+                return user;
+            }
+            
+            return null;
+        }
+
         public void CreateUser(User user)
         {
             _context.Users.Add(user);
             _context.SaveChanges();
         }
-
 
     }
 }
