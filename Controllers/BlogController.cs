@@ -22,68 +22,89 @@ namespace BlogApp.Controllers
             _tagRepository = tagRepository;
         }
 
-        /*
-                public async Task<IActionResult> Create()
+        [HttpGet]
+        public async Task<IActionResult> Create()
+        {
+            var tags = await _tagRepository.GetAll();
+
+            var model = new BlogCreateViewModel
+            {
+                Tags = tags.Select(tag => new TagViewModel { Id = tag.Id, Name = tag.Name, IsSelected = false }).ToList()
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Create(BlogCreateViewModel model, string selectedTags, IFormFile imageFile)
+        {
+            var selectedTagList = new List<int>();
+            if (!string.IsNullOrEmpty(selectedTags))
+            {
+                selectedTagList = selectedTags.Split(',').Select(int.Parse).ToList();
+            }
+
+            const int maxFileSize = 2 * 1024;
+            var allowenExtensions = new[] { ".jpg", ".png", ".jpeg" };
+            if (imageFile != null)
+            {
+
+                if (imageFile.Length > maxFileSize)
                 {
-                    var tags = await _tagRepository.GetAll();
-
-                    var model = new BlogCreateViewModel
-                    {
-                        Tags = tags.Select(tag => new TagViewModel { Id = tag.Id, Name = tag.Name, IsSelected = false }).ToList()
-                    };
-
-                    return View(model);
+                    ModelState.AddModelError("", "Dosya boyutu 2 MB den küçük olmalıdır.");
                 }
 
-                [HttpPost]
+                var extensions = Path.GetExtension(imageFile.FileName).ToLowerInvariant();
+
+                if (!allowenExtensions.Contains(extensions))
+                {
+                    ModelState.AddModelError("", "Geçerli bir resim seçiniz!");
+                }
+                else
+                {
+                    var randomFileName = string.Format($"{Guid.NewGuid().ToString()}{extensions}");
+                    var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/img", randomFileName);
+
+                    try
+                    {
+                        using (var stream = new FileStream(path, FileMode.Create))
+                        {
+                            await imageFile.CopyToAsync(stream);
+                        }
+                        model.BlogImage = randomFileName;
+                    }
+                    catch
+                    {
+                        ModelState.AddModelError("", "Dosya yüklenirken bir hata oluştu.");
+                    }
+                }
+            }
+            else
+            {
+                model.BlogImage = "defaultBlog.png";
+            }
+
+            var userIdValue = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            if (!int.TryParse(userIdValue, out int userId))
+            {
+                return Json(new { error = "Geçersiz kullanıcı ID." });
+            }
+
+            var Blog = new Blog(model.BlogTitle, model.BlogContent, model.BlogDescription, model.BlogImage, userId);
+            _blogRepository.Add(Blog);
+
+            return RedirectToAction("List");
+
+        }
+
+
+
+        /*
+                                [HttpPost]
                 public async Task<IActionResult> Create(BlogCreateViewModel model, IFormFile imageFile)
                 {
-                    //const int maxFileSize = 4 * 1024; // 2MB
-                    var allowedExtensions = new[] { ".jpg", ".jpeg", ".png", ".gif" };
-
-                    if (imageFile != null)
-                    {
-                        /*
-                        if (imageFile.Length > maxFileSize)
-                        {
-                            ModelState.AddModelError("imageFile", $"Dosya boyutu {maxFileSize / 1024} MB'dan küçük olmalıdır.");
-                        }
-
-                        var extension = Path.GetExtension(imageFile.FileName).ToLowerInvariant();
-
-                        if (!allowedExtensions.Contains(extension))
-                        {
-                            ModelState.AddModelError("imageFile", "Geçerli bir resim dosyası seçiniz.");
-                        }
-                        else
-                        {
-                            var randomFileName = string.Format($"{Guid.NewGuid().ToString()}{extension}");  // Guid: Global Unique Identifier. Benzersiz bir id (image adı) oluşturur
-
-                            // dosyanın kaydedileceği yolu belirler
-                            var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/img", randomFileName);
-
-                            // dosyayı kaydetmek aslında onu kopyalamaktır. Bu işlemin hatasız gerçekleştiğini bilmemiz gerekir
-                            try
-                            {
-                                using (var stream = new FileStream(path, FileMode.Create)) // path yoluna dosyayı oluşturur, file oluşturma işlemi
-                                {
-                                    await imageFile.CopyToAsync(stream);  // resmi oluşturduğumuz yolun içinde oluşturduğumuz dosyaya kopyalar. 
-                                }
-
-                                // product model içindeki image değerine randomFileName'i atar
-                                model.Blog.Image = randomFileName;
-                            }
-                            catch
-                            {
-                                ModelState.AddModelError("imageFile", "Dosya yüklenirken bir hata oluştu.");
-                            }
-                        }
-                    }
-                    else
-                    {
-                        ModelState.AddModelError("imageFile", "Bir resim dosyası seçiniz.");
-                    }
-
+                    
 
                     //TODO:
                     if (!ModelState.IsValid)
@@ -234,41 +255,5 @@ namespace BlogApp.Controllers
             return RedirectToAction("ListByUser");
         }
 
-        /*
-                public IActionResult Delete(string url)
-            {
-                if (url == null)
-                {
-                    return NotFound();
-                }
-
-                var blog = _blogRepository.GetByUrl(url);
-
-                if (blog == null)
-                {
-                    return NotFound();
-                }
-
-                return View("DeleteConfirm", blog);
-            }
-
-            [HttpPost]
-            public IActionResult Delete(int id, int ProductId)
-            {
-                if (id != ProductId)
-                {
-                    return NotFound();
-                }
-
-                var bootcamp = Repository.GetProductById(id);
-
-                if (bootcamp == null)
-                {
-                    return NotFound();
-                }
-
-                Repository.DeleteProduct(bootcamp);
-                return RedirectToAction("Index");
-            }*/
     }
 }

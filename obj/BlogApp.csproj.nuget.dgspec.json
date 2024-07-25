@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "E:\\Full_Stack_Bootcamp\\Final_Project\\BlogApp\\BlogApp.csproj": {}
+    "e:\\Full_Stack_Bootcamp\\Final_Project\\BlogApp\\BlogApp.csproj": {}
   },
   "projects": {
-    "E:\\Full_Stack_Bootcamp\\Final_Project\\BlogApp\\BlogApp.csproj": {
+    "e:\\Full_Stack_Bootcamp\\Final_Project\\BlogApp\\BlogApp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\Full_Stack_Bootcamp\\Final_Project\\BlogApp\\BlogApp.csproj",
+        "projectUniqueName": "e:\\Full_Stack_Bootcamp\\Final_Project\\BlogApp\\BlogApp.csproj",
         "projectName": "BlogApp",
-        "projectPath": "E:\\Full_Stack_Bootcamp\\Final_Project\\BlogApp\\BlogApp.csproj",
+        "projectPath": "e:\\Full_Stack_Bootcamp\\Final_Project\\BlogApp\\BlogApp.csproj",
         "packagesPath": "C:\\Users\\CAGLA\\.nuget\\packages\\",
-        "outputPath": "E:\\Full_Stack_Bootcamp\\Final_Project\\BlogApp\\obj\\",
+        "outputPath": "e:\\Full_Stack_Bootcamp\\Final_Project\\BlogApp\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

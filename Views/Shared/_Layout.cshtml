@@ -16,25 +16,26 @@
             <div class="container-fluid">
                 <a href="/" class="navbar-brand">Bloghub</a>
                 <ul class="navbar-nav ms-auto">
-                @if (User.Identity!.IsAuthenticated)
-                {
                     <li class="nav-item">
-                        <a href="/blog/listByUser" class="nav-link">@User.Identity.Name</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="/user/logout" class="nav-link">Logout</a>
-                    </li>
-                }
-                else
-                {
-                    <li class="nav-item">
-                        <a href="/user/login" class="nav-link">Login</a>
-                    </li>
-                }
-
-
-            </ul>
-                </div>
+                            <a class="nav-link text-dark" asp-controller="Blog" asp-action="Create">Add Blog</a>
+                        </li>
+                    @if (User.Identity!.IsAuthenticated)
+                    {
+                        <li class="nav-item">
+                            <a href="/blog/listByUser" class="nav-link">@User.Identity.Name</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/user/logout" class="nav-link">Logout</a>
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="nav-item">
+                            <a href="/user/login" class="nav-link">Login</a>
+                        </li>
+                    }
+                </ul>
+            </div>
             </div>
         </nav>
     </header>

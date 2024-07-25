@@ -1,0 +1,85 @@
+@model BlogCreateViewModel
+
+<h2>Blog Oluşturun</h2>
+<hr>
+<form asp-controller="Blog" asp-action="Create" method="post" enctype="multipart/form-data">
+<div asp-validation-summary="All"></div>
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="mb-3">
+                <label asp-for="BlogTitle" class="form-label">Başlık</label>
+                <input asp-for="BlogTitle" class="form-control">
+            </div>
+            <div class="mb-3">
+                <label asp-for="BlogDescription" class="form-label">Açıklama</label>
+                <input asp-for="BlogDescription" class="form-control">
+            </div>
+            <div class="mb-3">
+                <label asp-for="BlogContent" for="exampleFormControlTextarea1" class="form-label">İçerik</label>
+                <textarea asp-for="BlogContent" class="form-control" id="exampleFormControlTextarea1"
+                    rows="15"></textarea>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="mb-3">
+                <label asp-for="BlogImage" class="form-label">Görsel</label>
+                <input type="file" name="imageFile" id="imageFile" class="form-control">
+            </div>
+            <div class="mb-3">Etiketler
+                <div class="card">
+                    <div class="card-body">
+                        <ul class="list-inline d-flex flex-wrap gap-2">
+                            @foreach (var tag in Model.Tags)
+                            {
+                                <li class="list-inline-item">
+                                    <button type="button" class="btn btn-outline-primary tag-button"
+                                        data-id="@tag.Id">@tag.Name</button>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-success">Kaydet</button>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            var selectedTags = [];
+
+            $(".tag-button").click(function () {
+                var tagId = $(this).data("id");
+                var index = selectedTags.indexOf(tagId);
+
+                if (index > -1) {
+                    selectedTags.splice(index, 1); 
+                    $(this).removeClass("btn-primary").addClass("btn-outline-primary");
+                } else {
+                    selectedTags.push(tagId); 
+                    $(this).removeClass("btn-outline-primary").addClass("btn-primary");
+                }
+            });
+
+            $("form").submit(function (e) {
+                e.preventDefault();
+                var formData = $(this).serializeArray();
+                formData.push({ name: "selectedTags", value: selectedTags.join(",") });
+
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("Create")',
+                    data: formData,
+                    success: function (response) {
+                        console.log("Form submitted successfully.");
+                    },
+                    error: function (xhr, status, error) {
+                        console.error("Form submission error: " + error);
+                    }
+                });
+            });
+        });
+    </script>
+}
