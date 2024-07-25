@@ -1,8 +1,16 @@
 {
   "Files": [
     {
+      "Id": "E:\\Full_Stack_Bootcamp\\Final_Project\\BlogApp\\wwwroot\\css\\register.css",
+      "PackagePath": "staticwebassets\\css\\register.css"
+    },
+    {
       "Id": "E:\\Full_Stack_Bootcamp\\Final_Project\\BlogApp\\wwwroot\\css\\styles.css",
       "PackagePath": "staticwebassets\\css\\styles.css"
+    },
+    {
+      "Id": "E:\\Full_Stack_Bootcamp\\Final_Project\\BlogApp\\wwwroot\\img\\065f06ce-5fc8-459b-a775-c1cebe94e0a8.png",
+      "PackagePath": "staticwebassets\\img\\065f06ce-5fc8-459b-a775-c1cebe94e0a8.png"
     },
     {
       "Id": "E:\\Full_Stack_Bootcamp\\Final_Project\\BlogApp\\wwwroot\\img\\1.png",
@@ -55,6 +63,10 @@
     {
       "Id": "E:\\Full_Stack_Bootcamp\\Final_Project\\BlogApp\\wwwroot\\img\\65949f09-f402-4dc4-bde5-9872dcb30382.png",
       "PackagePath": "staticwebassets\\img\\65949f09-f402-4dc4-bde5-9872dcb30382.png"
+    },
+    {
+      "Id": "E:\\Full_Stack_Bootcamp\\Final_Project\\BlogApp\\wwwroot\\img\\9da15fe8-e22b-4e8e-b536-a8e1dc6f2aff.png",
+      "PackagePath": "staticwebassets\\img\\9da15fe8-e22b-4e8e-b536-a8e1dc6f2aff.png"
     },
     {
       "Id": "E:\\Full_Stack_Bootcamp\\Final_Project\\BlogApp\\wwwroot\\img\\avatar.jpg",

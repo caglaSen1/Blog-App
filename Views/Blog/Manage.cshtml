@@ -11,21 +11,25 @@
         {
             <div class="card m-3 shadow" id="@blog.Id" style="width: 20rem; border-radius: 10px; padding: 0;">
                 <img src="~/img/@blog.Image" class="card-img-top" alt="..."
-                    style="border-top-left-radius: 10px; border-top-right-radius: 10px; width: 100%; object-fit: cover;">
-                <div class="card-body">
-                    <h5 class="card-title" style="font-weight: bold;">@blog.Title</h5>
-                    <p class="card-text" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
-                        @blog.Description</p>
-                    <a href="/blog/details/@blog.Url" class="btn btn-secondary me-2">İncele</a>
-                    <a href="/blog/edit/@blog.Url" class="btn btn-secondary me-2">Güncelle</a>
-                    <a href="/blog/delete/@blog.Url" class="btn btn-danger">Sil</a>
+                    style="border-top-left-radius: 10px; border-top-right-radius: 10px; width: 100%; max-height:50% ; object-fit: cover;">
+                <div class="card-body" style="display: flex; justify-content: space-between; flex-direction: column;">
+                    <div>
+                        <h5 class="card-title" style="font-weight: bold;">@blog.Title</h5>
+                        <p class="card-text" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                            @blog.Description</p>
+                    </div>
+                    <div>
+                        <a href="/blog/details/@blog.Url" class="btn btn-secondary me-2">İncele</a>
+                        <a href="/blog/edit/@blog.Url" class="btn btn-secondary me-2">Güncelle</a>
+                        <a href="/blog/delete/@blog.Url" class="btn btn-danger">Sil</a>
+                    </div>
                 </div>
             </div>
         }
     </div>
 </div>
 
-@if (Model.Blogs.Any()) // Koşul blogları kontrol eder
+@if (Model.Blogs.Any())
 {
     <br>
     <nav aria-label="Page navigation example">

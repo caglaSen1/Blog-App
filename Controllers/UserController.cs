@@ -25,6 +25,7 @@ namespace BlogApp.Controllers
             }
             return View();
         }
+
         public async Task<IActionResult> Logout()
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
@@ -72,6 +73,12 @@ namespace BlogApp.Controllers
             }
 
             return View(model);
+        }
+
+        public IActionResult Register()
+        {
+            
+            return View();
         }
 
         

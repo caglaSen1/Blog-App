@@ -39,6 +39,11 @@ pattern: "blog/create",
 defaults: new { controller = "Blog", action = "Create" });*/
 
 app.MapControllerRoute(
+    name: "user/register",
+    pattern: "user/register",
+    defaults: new { controller = "User", action = "Register" });
+
+app.MapControllerRoute(
     name: "user/login",
     pattern: "user/login",
     defaults: new { controller = "User", action = "Login" });

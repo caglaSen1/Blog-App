@@ -8,7 +8,7 @@ namespace BlogApp.Entity
         [Display(Name = "User Id")]
         public int Id { get; set; }
 
-        [Display(Name = "User Name")]
+        [Display(Name = "UserName")]
         [Required(ErrorMessage = "User name is required.")]
         public string UserName { get; set; }
 

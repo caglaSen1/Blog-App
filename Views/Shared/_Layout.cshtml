@@ -13,8 +13,8 @@
 <body>
     @if (User.Identity!.IsAuthenticated)
     {
-        <header class="p-3 mb-3 border-bottom">
-            <div class="container">
+        <header id="deneme" class="p-3 mb-3 border-bottom">
+            <div  class="container">
                 <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
                     <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 link-body-emphasis text-decoration-none">
                         Bloghub
@@ -51,7 +51,7 @@
     }
     else
     {
-        <header class="p-3 text-bg-dark">
+        <header id="deneme" class="p-3 ">
             <div class="container">
                 <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
                     <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
@@ -59,9 +59,9 @@
                             <use xlink:href="#bootstrap" />
                         </svg>
                     </a>
-
+                    <h2 href="/" class="d-flex align-items-center mb-2 mr-10 mb-lg-0 link-body-emphasis text-decoration-none">
+                        Bloghub</h2>
                     <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                        <li><a href="#" class="nav-link px-2 text-secondary">Home</a></li>
                         <li><a href="/blog/list" class="nav-link px-2 text-white">Bloglar</a></li>
                         <li><a href="#" class="nav-link px-2 text-white">Pricing</a></li>
                         <li><a href="#" class="nav-link px-2 text-white">FAQs</a></li>
@@ -70,7 +70,7 @@
 
                     <div class="text-end">
                         <a href="/user/login" class="btn btn-outline-light me-2" role="button">Giriş Yap</a>
-                        <a href="/" class="btn btn-warning" role="button">Kayıt Ol</a>
+                        <a href="/user/register" class="btn btn-outline-light me-2" role="button">Kayıt Ol</a>
                     </div>
                 </div>
             </div>
