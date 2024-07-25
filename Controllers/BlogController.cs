@@ -3,6 +3,7 @@ using BlogApp.Data.Abstract;
 using BlogApp.Entity;
 using BlogApp.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace BlogApp.Controllers
 {
@@ -26,33 +27,30 @@ namespace BlogApp.Controllers
         public async Task<IActionResult> Create()
         {
             var tags = await _tagRepository.GetAll();
-
             var model = new BlogCreateViewModel
             {
-                Tags = tags.Select(tag => new TagViewModel { Id = tag.Id, Name = tag.Name, IsSelected = false }).ToList()
+                Tags = tags
             };
-
             return View(model);
+
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(BlogCreateViewModel model, string selectedTags, IFormFile imageFile)
+        public async Task<IActionResult> Create(BlogCreateViewModel model, IFormFile imageFile)
         {
-            var selectedTagList = new List<int>();
-            if (!string.IsNullOrEmpty(selectedTags))
-            {
-                selectedTagList = selectedTags.Split(',').Select(int.Parse).ToList();
-            }
-
-            const int maxFileSize = 2 * 1024;
+            /*if (!ModelState.IsValid)
+             {
+                 return RedirectToAction("Create");
+             }*/
+            //const int maxFileSize = 2 * 1024;
             var allowenExtensions = new[] { ".jpg", ".png", ".jpeg" };
             if (imageFile != null)
             {
 
-                if (imageFile.Length > maxFileSize)
+                /*if (imageFile.Length > maxFileSize)
                 {
                     ModelState.AddModelError("", "Dosya boyutu 2 MB den küçük olmalıdır.");
-                }
+                }*/
 
                 var extensions = Path.GetExtension(imageFile.FileName).ToLowerInvariant();
 
@@ -91,80 +89,17 @@ namespace BlogApp.Controllers
                 return Json(new { error = "Geçersiz kullanıcı ID." });
             }
 
-            var Blog = new Blog(model.BlogTitle, model.BlogContent, model.BlogDescription, model.BlogImage, userId);
-            _blogRepository.Add(Blog);
+
+            var blog = new Blog(model.BlogTitle, model.BlogContent, model.BlogDescription, model.BlogImage, userId);
+
+            var selectedTags = await _tagRepository.GetByIds(model.SelectedTags);
+            blog.Tags.AddRange(selectedTags);
+
+            _blogRepository.Add(blog);
 
             return RedirectToAction("List");
 
         }
-
-
-
-        /*
-                                [HttpPost]
-                public async Task<IActionResult> Create(BlogCreateViewModel model, IFormFile imageFile)
-                {
-                    
-
-                    //TODO:
-                    if (!ModelState.IsValid)
-                    {
-                        if (model.Blog.Title != null)
-                        {
-                            model.Blog.Url = model.Blog.Title.ToLower().Replace(" ", "-");
-                        }
-
-                        model.Blog.CreatedAt = DateTime.Now;
-                        model.Blog.IsActive = true;
-
-                        // TODO:
-                        model.Blog.UserId = 1;
-
-
-                                        var selectedTags = model.Tags.Where(t => t.IsSelected).ToList();
-                                        foreach (var tagViewModel in selectedTags)
-                                        {
-                                            var tag = await _tagRepository.GetById(tagViewModel.Id);
-                                            if (tag != null)
-                                            {
-                                                model.Blog.Tags.Add(tag);
-                                            }
-                                        }
-
-
-                        _blogRepository.Add(model.Blog);
-                        return RedirectToAction("List");
-                    }
-                    else
-                    {
-                        foreach (var state in ModelState)
-                        {
-                            foreach (var error in state.Value.Errors)
-                            {
-                                Console.WriteLine($"Error in {state.Key}: {error.ErrorMessage}");
-                            }
-                        }
-
-                        var tags = await _tagRepository.GetAll();
-                        if (tags == null)
-                        {
-                            model.Tags = new List<TagViewModel>(); // Or handle the null case appropriately
-                        }
-                        else
-                        {
-                            model.Tags = tags
-                                .Select(tag => new TagViewModel
-                                {
-                                    Id = tag.Id,
-                                    Name = tag.Name,
-                                    IsSelected = model.Tags != null && model.Tags.Any(t => t.Id == tag.Id && t.IsSelected)
-                                })
-                                .ToList();
-                        }
-                    }
-
-                    return View(model);
-                }*/
 
         public async Task<IActionResult> Details(string url)
         {
@@ -214,6 +149,76 @@ namespace BlogApp.Controllers
                 commentTime = comment.CreatedAt,
                 userImage
             });
+        }
+
+        public async Task<IActionResult> Edit(string url)
+        {
+            var blog = await _blogRepository.GetByUrl(url);
+            var tags = await _tagRepository.GetAll();
+
+            var model = new BlogEditViewModel
+            {
+                BlogTitle = blog.Title,
+                BlogContent = blog.Content,
+                BlogDescription = blog.Description,
+                BlogImage = blog.Image,
+                Tags = tags,
+                SelectedTags = blog.Tags.Select(t => t.Id).ToList()
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(string url, BlogEditViewModel model, IFormFile imageFile)
+        {
+            var blog = await _blogRepository.GetByUrl(url);
+
+            if (blog == null)
+            {
+                return NotFound();
+            }
+
+            blog.Title = model.BlogTitle;
+            blog.Content = model.BlogContent;
+            blog.Description = model.BlogDescription;
+
+            if (imageFile != null)
+            {
+                var allowenExtensions = new[] { ".jpg", ".png", ".jpeg" };
+                var extensions = Path.GetExtension(imageFile.FileName).ToLowerInvariant();
+
+                if (!allowenExtensions.Contains(extensions))
+                {
+                    ModelState.AddModelError("", "Geçerli bir resim seçiniz!");
+                }
+                else
+                {
+                    var randomFileName = string.Format($"{Guid.NewGuid().ToString()}{extensions}");
+                    var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/img", randomFileName);
+
+                    try
+                    {
+                        using (var stream = new FileStream(path, FileMode.Create))
+                        {
+                            await imageFile.CopyToAsync(stream);
+                        }
+                        blog.Image = randomFileName;
+                    }
+                    catch
+                    {
+                        ModelState.AddModelError("", "Dosya yüklenirken bir hata oluştu.");
+                    }
+                }
+            }
+
+            var selectedTags = await _tagRepository.GetByIds(model.SelectedTags);
+            blog.Tags.Clear();
+            blog.Tags.AddRange(selectedTags);
+
+            _blogRepository.Update(blog);
+
+            return RedirectToAction("ListByUser");
         }
 
         public async Task<IActionResult> ListByUser()

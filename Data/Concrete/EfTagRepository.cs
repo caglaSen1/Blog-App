@@ -33,6 +33,10 @@ namespace BlogApp.Data.Concrete
             return tag;
         }
 
+        public async Task<IEnumerable<Tag>> GetByIds(List<int> tagIds){
+            return await _context.Tags.Where(t => tagIds.Contains(t.Id)).ToListAsync();
+        }
+
         public void Add(Tag entity)
         {
             _context.Tags.Add(entity);

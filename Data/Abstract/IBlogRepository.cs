@@ -14,6 +14,8 @@ namespace BlogApp.Data.Abstract
 
         void Add(Blog blog);
 
+        void Update(Blog blog);
+
         void Delete(Blog blog);
     }
 }

@@ -10,6 +10,8 @@ namespace BlogApp.Data.Abstract
 
         Task<Tag> GetById(int id);
 
+        Task<IEnumerable<Tag>> GetByIds(List<int> tagIds);
+
         void Add(Tag entity);
     }
 }

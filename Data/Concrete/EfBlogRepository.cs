@@ -56,6 +56,12 @@ namespace BlogApp.Data.Concrete
             _context.SaveChanges();
         }
 
+        public void Update(Blog blog)
+        {
+            _context.Blogs.Update(blog);
+            _context.SaveChanges();
+        }
+
         public void Delete(Blog blog)
         {
             _context.Blogs.Remove(blog);

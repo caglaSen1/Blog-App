@@ -11,9 +11,9 @@
                     <h5 class="card-title" style="font-weight: bold;">@blog.Title</h5>
                     <p class="card-text" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
                         @blog.Description</p>
-                    <a asp-controller="Home" asp-action="Edit" asp-route-id="@blog.Id"
-                        class="btn btn-secondary me-2">Edit</a>
-                    <a href="/blog/delete/@blog.Url" class="btn btn-danger">Delete</a>
+                    <a href="/blog/details/@blog.Url" class="btn btn-secondary me-2">İncele</a>
+                    <a href="/blog/edit/@blog.Url" class="btn btn-secondary me-2">Güncelle</a>
+                    <a href="/blog/delete/@blog.Url" class="btn btn-danger">Sil</a>
                 </div>
             </div>
         }
@@ -36,7 +36,8 @@
             </li>
         </ul>
     </nav>
-}else
+}
+else
 {
     <div class="alert alert-warning" role="alert">
         Hiç blog yok.

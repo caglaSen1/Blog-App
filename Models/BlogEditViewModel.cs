@@ -4,15 +4,13 @@ using BlogApp.Entity;
 namespace BlogApp.Models
 {
     
-    public class BlogCreateViewModel
+    public class BlogEditViewModel
     {
         [Display(Name = "Blog Title")]
-        [Required(ErrorMessage = "Title is required.")]
-        public string BlogTitle { get; set; }
+        public string? BlogTitle { get; set; }
 
         [Display(Name = "Blog Content")]
-        [Required(ErrorMessage = "Content is required.")]
-        public string BlogContent { get; set; }
+        public string? BlogContent { get; set; }
 
         [Display(Name = "Blog Description")]
         public string? BlogDescription { get; set; }

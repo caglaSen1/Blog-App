@@ -69,6 +69,11 @@ pattern: "blog/delete/{url}",
 defaults: new { controller = "Blog", action = "Delete" });
 
 app.MapControllerRoute(
+name: "blog_edit",
+pattern: "blog/edit/{url}",
+defaults: new { controller = "Blog", action = "Edit" });
+
+app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Blog}/{action=List}/{id?}");
 

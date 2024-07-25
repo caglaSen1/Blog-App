@@ -53,7 +53,7 @@ namespace BlogApp.Entity
             Description = description;
             if (image == null)
             {
-                Image = "defaultUser.png";
+                Image = "defaultBlog.png";
             }
             else
             {
