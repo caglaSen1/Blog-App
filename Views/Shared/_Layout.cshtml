@@ -1,6 +1,8 @@
+@using System.Security.Claims
 <!DOCTYPE html>
 <html lang="en">
 <!-- <img class="mb-4" src="~/img/p1.jpg" alt="Logo" width="72" height="57"> -->
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,46 +15,70 @@
 <body>
     @if (User.Identity!.IsAuthenticated)
     {
-        <header id="deneme" class="p-3 mb-3 border-bottom">
-            <div  class="container">
-                <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-                    <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 link-body-emphasis text-decoration-none">
-                        Bloghub
-                        <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap">
-                            <use xlink:href="#bootstrap" />
-                        </svg>
-                    </a>
-
-                    <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                        <li><a href="#" class="nav-link px-2 link-secondary">Overview</a></li>
-                        <li><a href="#" class="nav-link px-2 link-body-emphasis">Inventory</a></li>
-                        <li><a href="#" class="nav-link px-2 link-body-emphasis">Customers</a></li>
-                        <li><a href="#" class="nav-link px-2 link-body-emphasis">Products</a></li>
-                    </ul>
-
-                    <div class="dropdown text-end">
-                        <a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            <span class="me-2">@User.Identity.Name</span>
-                            <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">
+        @if (User.FindFirstValue(ClaimTypes.Role) == "admin")
+        {
+            <header id="myHeaderBackground" class="p-3 mb-3 border-bottom">
+                <div class="container">
+                    <div class="d-flex flex-wrap align-items-center justify-content-between">
+                        <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 link-body-emphasis text-decoration-none">
+                            <h3>Bloghub Admin Paneli</h3>
+                            <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap">
+                                <use xlink:href="#bootstrap" />
+                            </svg>
                         </a>
-                        <ul class="dropdown-menu text-small">
-                            <li><a class="dropdown-item" href="/blog/create">Blog Yaz</a></li>
-                            <li><a class="dropdown-item" href="/blog/listByUser">Bloglarım</a></li>
-                            <li><a class="dropdown-item" href="#">Ayarlar</a></li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li><a class="dropdown-item" href="/user/logout">Çıkış Yap</a></li>
+
+                        <ul class="nav col-lg-auto mb-2 justify-content-end mb-md-0">
+                            <li><a href="/admin/home" class="nav-link px-2 link-body-emphasis">Yönetim</a></li>
+                            <li><a href="/blog/list" class="nav-link px-2 link-body-emphasis">Bloglar</a></li>
+                            <li><a href="/user/logout" class="nav-link px-2 link-body-emphasis">Çıkış</a></li>
                         </ul>
                     </div>
                 </div>
-            </div>
-        </header>
+            </header>
+        }
+        else
+        {
+            <header id="myHeaderBackground" class="p-3 mb-3 border-bottom">
+                <div class="container">
+                    <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+                        <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 link-body-emphasis text-decoration-none"><h2>Bloghub</h2>
+                            
+                            <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap">
+                                <use xlink:href="#bootstrap" />
+                            </svg>
+                        </a>
+
+                        <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+                            
+                            <li><a href="#" class="nav-link px-2 link-body-emphasis">Home</a></li>
+                            <li><a href="#" class="nav-link px-2 link-body-emphasis">Customers</a></li>
+                            <li><a href="#" class="nav-link px-2 link-body-emphasis">Products</a></li>
+                        </ul>
+
+                        <div class="dropdown text-end">
+                            <a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                <span class="me-2">@User.Identity.Name</span>
+                                <img src="~/img/defaultUser.png" alt="mdo" width="32" height="32" class="rounded-circle">
+                            </a>
+                            <ul class="dropdown-menu text-small">
+                                <li><a class="dropdown-item" href="/blog/create">Blog Yaz</a></li>
+                                <li><a class="dropdown-item" href="/blog/listByUser">Bloglarım</a></li>
+                                <li><a class="dropdown-item" href="#">Ayarlar</a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item" href="/user/logout">Çıkış Yap</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </header>
+        }
     }
     else
     {
-        <header id="deneme" class="p-3 ">
+        <header id="myHeaderBackground" class="p-3 ">
             <div class="container">
                 <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
                     <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
@@ -60,11 +86,13 @@
                             <use xlink:href="#bootstrap" />
                         </svg>
                     </a>
-                    <h2 href="/" class="d-flex align-items-center mb-2 mr-10 mb-lg-0 link-body-emphasis text-decoration-none">
-                        Bloghub</h2>
+                    
+                      <a href="/blog/list"
+                        class="d-flex align-items-center mb-2 mr-10 mb-lg-0 link-body-emphasis text-decoration-none"><h1>Bloghub</h1>
+                        </a>
                     <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                        <li><a href="/blog/list" class="nav-link px-2 text-white">Bloglar</a></li>
-                        <li><a href="#" class="nav-link px-2 text-white">Pricing</a></li>
+                        
+                        <li><a href="#" class="nav-link px-2 text-white">Home</a></li>
                         <li><a href="#" class="nav-link px-2 text-white">FAQs</a></li>
                         <li><a href="#" class="nav-link px-2 text-white">About</a></li>
                     </ul>

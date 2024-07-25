@@ -18,6 +18,9 @@ namespace BlogApp.Entity
         [Display(Name = "Tag Color")]
         public TagColors? Color { get; set; }
 
+        [Display(Name = "Blog Is Active")]
+        public bool IsActive { get; set; }
+
         [Display(Name = "Tag Of Blogs")]
         public List<Blog> Blogs { get; set; } = new List<Blog>();
 
@@ -26,6 +29,7 @@ namespace BlogApp.Entity
             Name = name;
             Url = Name.ToLower().Replace(" ", "-");
             Color = color;
+            IsActive = true;
         }
     }
 

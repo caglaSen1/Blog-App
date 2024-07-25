@@ -18,6 +18,9 @@ namespace BlogApp.Entity
         [Display(Name = "Comment Updated At")]
         public DateTime UpdatedAt { get; set; }
 
+        [Display(Name = "Comment Is Active")]
+        public bool IsActive { get; set; }
+
         [Display(Name = "Blog Of Comment")]
         public int BlogId { get; set; }
         public Blog Blog { get; set; } = null!;
@@ -30,6 +33,7 @@ namespace BlogApp.Entity
         {
             Text = text;
             CreatedAt = DateTime.Now;
+            IsActive = true;
             BlogId = blogId;
             UserId = userId;
         }

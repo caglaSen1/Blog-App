@@ -21,5 +21,6 @@ namespace BlogApp.Models
         public List<int> SelectedTags { get; set; } = new List<int>();
 
         public IEnumerable<Tag> Tags { get; set; } = new List<Tag>();
+        
     }
 }

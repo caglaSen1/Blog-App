@@ -32,11 +32,20 @@ app.UseAuthorization();
 
 SeedData.CreateTestData(app);
 
-/*
 app.MapControllerRoute(
-name: "blog_create",
-pattern: "blog/create",
-defaults: new { controller = "Blog", action = "Create" });*/
+    name: "/admin/home",
+    pattern: "/admin/home",
+    defaults: new { controller = "Admin", action = "Home" });
+
+    app.MapControllerRoute(
+    name: "/admin/edit",
+    pattern: "/admin/edit/{url}",
+    defaults: new { controller = "Admin", action = "Edit" });
+
+    app.MapControllerRoute(
+    name: "/admin/delete",
+    pattern: "/admin/delete/{url}",
+    defaults: new { controller = "Admin", action = "Delete" });
 
 app.MapControllerRoute(
     name: "user/register",

@@ -18,6 +18,7 @@ namespace BlogApp.Controllers
             _userRepository = userRepository;
         }
 
+        
         public async Task<IActionResult> Logout()
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
