@@ -195,6 +195,45 @@ namespace BlogApp.Controllers
             });
         }
 
+        public async Task<IActionResult> ListByUser()
+        {
+            var userIdValue = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            if (!int.TryParse(userIdValue, out int userId))
+            {
+                return Json(new { error = "Geçersiz kullanıcı ID." });
+            }
+
+            var blogs = await _blogRepository.GetBlogsByUserId(userId);
+
+            return View("Manage", new BlogViewModel
+            {
+                Blogs = blogs
+            });
+        }
+
+        public async Task<IActionResult> Delete(string url)
+        {
+
+            var blog = await _blogRepository.GetByUrl(url);
+
+            return View("DeleteConfirm", blog);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var blogToDelete = await _blogRepository.GetById(id);
+
+            if (blogToDelete == null)
+            {
+                return NotFound();
+            }
+
+            _blogRepository.Delete(blogToDelete);
+            return RedirectToAction("ListByUser");
+        }
+
         /*
                 public IActionResult Delete(string url)
             {

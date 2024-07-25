@@ -1,0 +1,44 @@
+@model BlogViewModel
+
+<div class="container py-5">
+    <div class="row">
+        @foreach (var blog in Model.Blogs)
+        {
+            <div class="card m-3 shadow" id="@blog.Id" style="width: 20rem; border-radius: 10px; padding: 0;">
+                <img src="~/img/@blog.Image" class="card-img-top" alt="..."
+                    style="border-top-left-radius: 10px; border-top-right-radius: 10px; width: 100%; object-fit: cover;">
+                <div class="card-body">
+                    <h5 class="card-title" style="font-weight: bold;">@blog.Title</h5>
+                    <p class="card-text" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                        @blog.Description</p>
+                    <a asp-controller="Home" asp-action="Edit" asp-route-id="@blog.Id"
+                        class="btn btn-secondary me-2">Edit</a>
+                    <a href="/blog/delete/@blog.Url" class="btn btn-danger">Delete</a>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+@if (Model.Blogs.Any()) // Koşul blogları kontrol eder
+{
+    <br>
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+            <li class="page-item disabled">
+                <a class="page-link">Previous</a>
+            </li>
+            <li class="page-item"><a class="page-link" href="#">1</a></li>
+            <li class="page-item"><a class="page-link" href="#">2</a></li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item">
+                <a class="page-link" href="#">Next</a>
+            </li>
+        </ul>
+    </nav>
+}else
+{
+    <div class="alert alert-warning" role="alert">
+        Hiç blog yok.
+    </div>
+}

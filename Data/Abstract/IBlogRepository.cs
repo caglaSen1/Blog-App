@@ -10,6 +10,10 @@ namespace BlogApp.Data.Abstract
         
         Task<Blog> GetByUrl(string url);
 
+        Task<List<Blog>> GetBlogsByUserId(int userId);
+
         void Add(Blog blog);
+
+        void Delete(Blog blog);
     }
 }

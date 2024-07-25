@@ -42,11 +42,24 @@ namespace BlogApp.Data.Concrete
             return blog;
         }
 
+        public async Task<List<Blog>> GetBlogsByUserId(int userId)
+        {
+            return await _context.Blogs
+            .Include(b => b.Tags)
+            .Where(b => b.UserId == userId)
+            .ToListAsync();
+        }
+
         public void Add(Blog blog)
         {
             _context.Blogs.Add(blog);
             _context.SaveChanges();
         }
 
+        public void Delete(Blog blog)
+        {
+            _context.Blogs.Remove(blog);
+            _context.SaveChanges();
+        }
     }
 }
