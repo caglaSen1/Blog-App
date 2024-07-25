@@ -12,6 +12,8 @@ namespace BlogApp.Data.Abstract
 
         Task<IEnumerable<Tag>> GetByIds(List<int> tagIds);
 
+        Task<List<Tag>> GetPopularTags(int amount);
+
         void Add(Tag entity);
     }
 }

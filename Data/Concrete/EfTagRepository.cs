@@ -37,6 +37,17 @@ namespace BlogApp.Data.Concrete
             return await _context.Tags.Where(t => tagIds.Contains(t.Id)).ToListAsync();
         }
 
+        public async Task<List<Tag>> GetPopularTags(int amount)
+        {
+            if(amount > await _context.Tags.CountAsync()){
+                amount = await _context.Tags.CountAsync();
+            }
+            
+            return await _context.Tags.OrderByDescending(t => t.Blogs.Count())
+            .Take(amount)
+            .ToListAsync();
+        }
+
         public void Add(Tag entity)
         {
             _context.Tags.Add(entity);
