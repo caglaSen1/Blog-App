@@ -1,5 +1,10 @@
 @model BlogViewModel
 
+@{
+    ViewBag.FormAction = "/blog/listByUser";
+}
+@Html.Partial("_Filter", Model.Tags)
+
 <div class="container py-5">
     <div class="row">
         @foreach (var blog in Model.Blogs)

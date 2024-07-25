@@ -112,16 +112,17 @@ namespace BlogApp.Controllers
         {
             var claims = User.Claims;
             var blogs = await _blogRepository.GetAll();
+            var tags = await _tagRepository.GetAll();
 
             if (!string.IsNullOrEmpty(tagUrl))
             {
                 blogs = blogs.Where(b => b.Tags.Any(t => t.Url == tagUrl)).ToList();
             }
 
-
             return View(new BlogViewModel
             {
-                Blogs = blogs
+                Blogs = blogs,
+                Tags = tags
             });
 
         }
@@ -221,9 +222,10 @@ namespace BlogApp.Controllers
             return RedirectToAction("ListByUser");
         }
 
-        public async Task<IActionResult> ListByUser()
+        public async Task<IActionResult> ListByUser(string? tagUrl)
         {
             var userIdValue = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var tags = await _tagRepository.GetAll();
 
             if (!int.TryParse(userIdValue, out int userId))
             {
@@ -232,9 +234,15 @@ namespace BlogApp.Controllers
 
             var blogs = await _blogRepository.GetBlogsByUserId(userId);
 
+            if(!string.IsNullOrEmpty(tagUrl))
+            {
+                blogs = blogs.Where(b => b.Tags.Any(t => t.Url == tagUrl)).ToList();
+            }
+
             return View("Manage", new BlogViewModel
             {
-                Blogs = blogs
+                Blogs = blogs,
+                Tags = tags
             });
         }
 

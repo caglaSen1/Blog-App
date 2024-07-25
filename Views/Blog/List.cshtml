@@ -1,5 +1,10 @@
 @model BlogViewModel
 
+@{
+    ViewBag.FormAction = "/blog/list";
+}
+@Html.Partial("_Filter", Model.Tags)
+
 <div class="row">
     <div class="col-lg-8">
         <div class="card">

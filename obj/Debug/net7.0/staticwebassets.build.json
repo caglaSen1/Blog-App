@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "5l4F6DJ5J4Yz6gwh7B5vS+A+5d/fdmcJpGIu+qM0JhE=",
+  "Hash": "HCOPea7mfoqeMyDhgBisYYVaxWJc/SK+dT2wcVSKA9c=",
   "Source": "BlogApp",
   "BasePath": "_content/BlogApp",
   "Mode": "Default",
@@ -433,6 +433,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\img\\e3730d7f-52cf-4e6c-ab55-439b323d9228.png"
+    },
+    {
+      "Identity": "E:\\Full_Stack_Bootcamp\\Final_Project\\BlogApp\\wwwroot\\img\\f4260300-d3d6-4c3f-b51f-91190900247f.png",
+      "SourceId": "BlogApp",
+      "SourceType": "Discovered",
+      "ContentRoot": "E:\\Full_Stack_Bootcamp\\Final_Project\\BlogApp\\wwwroot\\",
+      "BasePath": "_content/BlogApp",
+      "RelativePath": "img/f4260300-d3d6-4c3f-b51f-91190900247f.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\img\\f4260300-d3d6-4c3f-b51f-91190900247f.png"
     },
     {
       "Identity": "E:\\Full_Stack_Bootcamp\\Final_Project\\BlogApp\\wwwroot\\img\\f9c2afcb-2ff6-431c-b266-294205ebb6bc.png",
