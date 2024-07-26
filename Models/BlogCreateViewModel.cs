@@ -3,15 +3,14 @@ using BlogApp.Entity;
 
 namespace BlogApp.Models
 {
-    
     public class BlogCreateViewModel
     {
         [Display(Name = "Blog Title")]
-        [Required(ErrorMessage = "Title is required.")]
+        [Required(ErrorMessage = "Lütfen bir başlık giriniz.")]
         public string BlogTitle { get; set; }
 
         [Display(Name = "Blog Content")]
-        [Required(ErrorMessage = "Content is required.")]
+        [Required(ErrorMessage = "Lütfen içerik ekleyiniz.")]
         public string BlogContent { get; set; }
 
         [Display(Name = "Blog Description")]

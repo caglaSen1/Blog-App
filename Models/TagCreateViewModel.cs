@@ -7,7 +7,7 @@ namespace BlogApp.Models
     public class TagCreateViewModel
     {
         [Display(Name = "Tag Name")]
-        [Required(ErrorMessage = "Name is required.")]
+        [Required(ErrorMessage = "Lütfen bir etiket adı giriniz.")]
         public string Name { get; set; } = null!;
 
         [Display(Name = "Tag Colors")]

@@ -84,7 +84,7 @@ namespace BlogApp.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Register(RegisterViewModel model, IFormFile imageFile)
+        public async Task<IActionResult> Register(RegisterViewModel model, IFormFile? imageFile)
         {
 
             if (ModelState.IsValid)

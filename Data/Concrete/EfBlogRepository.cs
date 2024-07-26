@@ -34,6 +34,7 @@ namespace BlogApp.Data.Concrete
         public async Task<Blog> GetByUrl(string url)
         {
             Blog blog = await _context.Blogs
+            .Include(b => b.User)
             .Include(b => b.Tags)
             .Include(b => b.Comments)
             .ThenInclude(c => c.User)
@@ -77,7 +78,7 @@ namespace BlogApp.Data.Concrete
                 .Select(b => new
                 {
                     Blog = b,
-                    Popularity = b.Comments.Count 
+                    Popularity = b.Comments.Count + b.LikeCount
                 })
                 .OrderByDescending(b => b.Popularity)
                 .Take(amount)

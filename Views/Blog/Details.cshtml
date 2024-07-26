@@ -13,7 +13,7 @@
                     </a>
                 }
             </div>
-            <img src="~/img/@Model.Image" class="img-fluid rounded mb-3" alt="">
+            <img src="~/img/@Model.Image" class="img-fluid rounded mb-3" style="max-height: 350px; width: fit-content;" alt="">
             <ul class="list-inline my-3">
                 <li class="list-inline-item"><i class="bi bi-person-circle"><a
                             href="/profile/@Model.User.UserName">@Model.User.UserName</a></i></li>
@@ -103,6 +103,7 @@
         </div>
     </div>
 </div>
+
 
 @section Scripts {
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
