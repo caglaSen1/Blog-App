@@ -1,4 +1,5 @@
 using BlogApp.Entity;
+using SQLitePCL;
 
 namespace BlogApp.Data.Abstract
 {
@@ -11,6 +12,12 @@ namespace BlogApp.Data.Abstract
         Task<Blog> GetByUrl(string url);
 
         Task<List<Blog>> GetBlogsByUserId(int userId);
+
+        Task<int> GetCommentCount(int blogId);
+
+        Task<int> GetLikeCount(int blogId);
+
+        Task<List<Blog>> GetPopularBlogs(int count);
 
         void Add(Blog blog);
 

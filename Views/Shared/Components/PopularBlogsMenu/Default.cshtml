@@ -1,0 +1,23 @@
+@model List<BlogDetailsViewModel>
+
+<div class="card">
+    <div class="card-header">
+        <h5 class="card-title">Popüler Bloglar</h5>
+    </div>
+    <div class="card-body">
+        @foreach (var blogDetail in Model)
+        {
+            <div class="mb-3 d-flex justify-content-between align-items-center">
+                <h6 class="mb-0">
+                    <a href="/blog/details/@blogDetail.Blog.Url">
+                        @blogDetail.Blog.Title
+                    </a>
+                </h6>
+                <div class="text-muted">
+                    <span>Yorum: @blogDetail.CommentCount</span>
+                    <span> Beğeni: @blogDetail.LikeCount</span>
+                </div>
+            </div>
+        }
+    </div>
+</div>

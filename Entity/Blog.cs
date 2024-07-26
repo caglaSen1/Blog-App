@@ -35,6 +35,9 @@ namespace BlogApp.Entity
         [Display(Name = "Blog Is Active")]
         public bool IsActive { get; set; }
 
+        [Display(Name = "Blog Like Count")]
+        public int LikeCount { get; set; } = 0;
+
         [Display(Name = "Blog Author")]
         public int UserId { get; set; }
         public User User { get; set; } = null!;

@@ -50,6 +50,44 @@ namespace BlogApp.Data.Concrete
             .ToListAsync();
         }
 
+        public async Task<int> GetCommentCount(int blogId)
+        {
+            var blog = await _context.Blogs.FindAsync(blogId);
+            
+            return blog.Comments.Count();
+        }
+
+        public async Task<int> GetLikeCount(int blogId)
+        {
+            var blog = await _context.Blogs.FindAsync(blogId);
+
+            return blog.LikeCount;
+        }
+
+        public async Task<List<Blog>> GetPopularBlogs(int amount)
+        {
+
+            if (amount > _context.Blogs.Count())
+            {
+                amount = _context.Blogs.Count();
+            }
+
+            var popularBlogs = await _context.Blogs
+                .Include(b => b.Comments)
+                .Select(b => new
+                {
+                    Blog = b,
+                    Popularity = b.Comments.Count 
+                })
+                .OrderByDescending(b => b.Popularity)
+                .Take(amount)
+                .Select(b => b.Blog)
+                .ToListAsync();
+
+            return popularBlogs;
+
+        }
+
         public void Add(Blog blog)
         {
             _context.Blogs.Add(blog);
@@ -67,5 +105,7 @@ namespace BlogApp.Data.Concrete
             _context.Blogs.Remove(blog);
             _context.SaveChanges();
         }
+
+        
     }
 }

@@ -68,7 +68,7 @@ namespace BlogApp.Entity
                 Image = image;
             }
             CreatedAt = DateTime.Now;
-            IsActive = false;
+            IsActive = true;
         }
 
     }

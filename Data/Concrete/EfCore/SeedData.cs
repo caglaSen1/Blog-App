@@ -49,16 +49,19 @@ namespace BlogApp.Data.Concrete.EfCore
 
                     Blog1.Comments.Add(new Comment("Gayet iyi bir anlatım olmuş.", Blog1.Id, 1));
                     Blog1.Tags.AddRange(Tags.Take(3).ToList());
+                    Blog1.LikeCount = 5;
 
                     var Blog2 = new Blog("Unity ile oyun geliştirme", "Unity editörü ile oyunlar geliştirebilirsiniz.", "Unity editörü ile oyunlar geliştirebilirsiniz.", "2.png", 2);
 
                     Blog2.Comments.Add(new Comment("Harika bir oyun olmuş.", Blog2.Id, 2));        
                     Blog2.Tags.AddRange(Tags.Take(2).ToList());
+                    Blog2.LikeCount = 4;
 
                     var Blog3 = new Blog("Full Stack Developer Olmak", "Full Stack Developer Olmak Güzeldir.", "Full Stack Developer Olmak Güzeldir.", "3.png", 1);
 
                     Blog3.Comments.Add(new Comment("Full Stack Developer olmak için neler yapmalıyım?", Blog3.Id, 1));
                     Blog3.Tags.AddRange(Tags.Take(4).ToList());
+                    Blog3.LikeCount = 3;
 
                     context.Blogs.AddRange(Blog1, Blog2, Blog3);
 
