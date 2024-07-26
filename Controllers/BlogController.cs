@@ -159,6 +159,21 @@ namespace BlogApp.Controllers
             });
         }
 
+        [HttpPost]
+        public JsonResult Like(int blogId)
+        {
+            try
+            {
+                _blogRepository.LikeBlog(blogId);
+                return Json(new { success = true });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, message = ex.Message });
+            }
+        }
+
+
         public async Task<IActionResult> Edit(string url)
         {
             var blog = await _blogRepository.GetByUrl(url);

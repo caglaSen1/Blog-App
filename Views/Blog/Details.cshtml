@@ -21,8 +21,31 @@
         <br>
         <div class="card bg-white mt-3 rounded shadow-sm mb-4">
             <div class="card-header border-0">
-                <h4><span id="commentCount">@Model.Comments.Count()</span> adet yorum var.</h4>
+                <div class="row">
+                    <div class="col-lg-6 d-flex align-items-center">
+                        <div class="me-3">
+                            <h5 id="commentCount" class="d-inline">@Model.Comments.Count()</h5>
+                            <span>yorum</span>
+                        </div>
+                        <div>
+                            <h5 id="likeCount" class="d-inline">@Model.LikeCount</h5>
+                            <span>beğeni</span>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 text-end">
+                        @if (User.Identity!.IsAuthenticated)
+                        {
+                            <button id="btnLike" class="btn btn-primary">Beğen</button>
+                            <input type="hidden" id="BlogId" value="@Model.Id" />
+                        }
+                        else
+                        {
+                            <p>Yorum yapabilmek için giriş yapınız. <a href="/user/login">Login</a></p>
+                        }
+                    </div>
+                </div>
             </div>
+
             <div class="card-body pb-4">
                 <div id="comment">
                     @foreach (var comment in Model.Comments)
@@ -93,17 +116,17 @@
                         var date = new Date(json.commentTime);
 
                         $("#comment").append(`
-                                        <div class="my-4 d-flex">
-                                        <img src="/img/${json.userImage}" class="avatar rounded-circle float-start me-3" alt="">
-                                        <div>
-                                        <div class="mb-2 d-flex">
-                                            <h6 class="me-2">${json.userName}</h6>
-                                            <small>${date.toLocaleDateString()}</small>
-                                        </div>
-                                        <p>${json.text}</p>
-                                    </div>
-                                        </div>                        
-                                    `);
+                                                                                <div class="my-4 d-flex">
+                                                                                <img src="/img/${json.userImage}" class="avatar rounded-circle float-start me-3" alt="">
+                                                                                <div>
+                                                                                <div class="mb-2 d-flex">
+                                                                                    <h6 class="me-2">${json.userName}</h6>
+                                                                                    <small>${date.toLocaleDateString()}</small>
+                                                                                </div>
+                                                                                <p>${json.text}</p>
+                                                                            </div>
+                                                                                </div>                        
+                                                                            `);
 
                         $("#Text").val('');
 
@@ -112,6 +135,29 @@
                     },
                     error: function (error) {
                         alert("Yorum eklenirken bir hata oluştu.");
+                    }
+                });
+
+                return false;
+            });
+            $("#btnLike").click(function () {
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("Like")',
+                    dataType: 'json',
+                    data: {
+                        blogId: $('#BlogId').val()
+                    },
+                    success: function (json) {
+                        if (json.success) {
+                            var count = parseInt($("#likeCount").text());
+                            $("#likeCount").text(count + 1);
+                        } else {
+                            alert("Beğeni işleminde bir hata oluştu." + json.message);
+                        }
+                    },
+                    error: function (error) {
+                        alert("Beğeni işleminde bir hata oluştu.");
                     }
                 });
 

@@ -106,6 +106,12 @@ namespace BlogApp.Data.Concrete
             _context.SaveChanges();
         }
 
-        
+        public void LikeBlog(int blogId)
+        {
+            var blog = _context.Blogs.FirstOrDefault(b => b.Id == blogId);
+            blog.LikeCount++;
+            _context.SaveChanges();
+        }
+
     }
 }

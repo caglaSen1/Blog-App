@@ -24,5 +24,7 @@ namespace BlogApp.Data.Abstract
         void Update(Blog blog);
 
         void Delete(Blog blog);
+
+        void LikeBlog(int blogId);
     }
 }
