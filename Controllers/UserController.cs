@@ -50,7 +50,7 @@ namespace BlogApp.Controllers
                         new(ClaimTypes.Name, user.UserName),
                         new(ClaimTypes.GivenName, user.FirstName),
                         new(ClaimTypes.GivenName, user.LastName),
-                        new(ClaimTypes.UserData, user.Image ?? "")
+                        new(ClaimTypes.UserData, user.Image)
                     };
 
                     if (user.Email == "admin@gmail.com")
@@ -108,6 +108,19 @@ namespace BlogApp.Controllers
             }else{
                 return View(model);
             }
+        }
+
+        public async Task<IActionResult> Profile(string userName){
+            if(string.IsNullOrEmpty(userName)){
+                return NotFound();
+            }
+            var user = await _userRepository.GetByUserName(userName);
+
+            if(user==null){
+                return NotFound();
+            }
+
+            return View(user);
         }
     }
 }

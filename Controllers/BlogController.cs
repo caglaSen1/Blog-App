@@ -241,10 +241,10 @@ namespace BlogApp.Controllers
 
             _blogRepository.Update(blog);
 
-            return RedirectToAction("ListByUser");
+            return RedirectToAction("Manage");
         }
 
-        public async Task<IActionResult> ListByUser(string tagUrl, string searchString)
+        public async Task<IActionResult> Manage(string tagUrl, string searchString)
         {
             var userIdValue = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var tags = await _tagRepository.GetAll();
@@ -293,7 +293,7 @@ namespace BlogApp.Controllers
             }
 
             _blogRepository.Delete(blogToDelete);
-            return RedirectToAction("ListByUser");
+            return RedirectToAction("Manage");
         }
 
     }

@@ -48,6 +48,8 @@ namespace BlogApp.Data.Concrete
         public async Task<User?> GetByUserName(string userName)
         {
             User? user = await _context.Users
+            .Include(u => u.Blogs)
+            .Include(u => u.Comments)
             .FirstOrDefaultAsync(u => u.UserName == userName);
 
             if (user != null)
