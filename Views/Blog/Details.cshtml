@@ -8,7 +8,10 @@
                 @foreach (var tag in Model.Tags)
                 {
                     <a href="/blog/tag/@tag.Url"
-                        class="badge bg-@tag.Color bg-opacity-5 text-white mb-2 fw-bold">@tag.Name</a>
+                        class="badge" 
+                        style="background-color: @tag.Color.ToString().ToLowerInvariant(); color: white; margin-right: 5px;">
+                        @tag.Name
+                    </a>
                 }
             </div>
             <img src="~/img/@Model.Image" class="img-fluid rounded mb-3" alt="">
@@ -40,7 +43,7 @@
                         }
                         else
                         {
-                            <p>Yorum yapabilmek için giriş yapınız. <a href="/user/login">Login</a></p>
+                            <p>Beğenmek için giriş yapınız. <a href="/user/login">Giriş</a></p>
                         }
                     </div>
                 </div>
@@ -81,7 +84,7 @@
                 }
                 else
                 {
-                    <p>Yorum yapabilmek için giriş yapınız. <a href="/user/login">Login</a></p>
+                    <p>Yorum yapabilmek için giriş yapınız. <a href="/user/login">Giriş</a></p>
                 }
             </div>
         </div>
@@ -116,17 +119,17 @@
                         var date = new Date(json.commentTime);
 
                         $("#comment").append(`
-                                                                                <div class="my-4 d-flex">
-                                                                                <img src="/img/${json.userImage}" class="avatar rounded-circle float-start me-3" alt="">
-                                                                                <div>
-                                                                                <div class="mb-2 d-flex">
-                                                                                    <h6 class="me-2">${json.userName}</h6>
-                                                                                    <small>${date.toLocaleDateString()}</small>
-                                                                                </div>
-                                                                                <p>${json.text}</p>
-                                                                            </div>
-                                                                                </div>                        
-                                                                            `);
+                                          <div class="my-4 d-flex">
+                                            <img src="/img/${json.userImage}" class="avatar rounded-circle float-start me-3" alt="">
+                                            <div>
+                                            <div class="mb-2 d-flex">
+                                            <h6 class="me-2">${json.userName}</h6>
+                                            <small>${date.toLocaleDateString()}</small>
+                                             </div>
+                                            <p>${json.text}</p>
+                                             </div>
+                                             </div>                        
+                                            `);
 
                         $("#Text").val('');
 

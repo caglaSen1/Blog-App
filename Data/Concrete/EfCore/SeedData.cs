@@ -23,11 +23,11 @@ namespace BlogApp.Data.Concrete.EfCore
                 if (!context.Tags.Any())
                 {
                     context.Tags.AddRange(
-                        new Tag("web prograglama", TagColors.primary),
-                        new Tag("full-stack", TagColors.secondary),
-                        new Tag("game", TagColors.success),
-                        new Tag("backend", TagColors.danger),
-                        new Tag("frontend", TagColors.info)
+                        new Tag("web prograglama", TagColors.grey),
+                        new Tag("full-stack", TagColors.cornflowerblue),
+                        new Tag("game", TagColors.darkgoldenrod),
+                        new Tag("backend", TagColors.cadetblue),
+                        new Tag("frontend", TagColors.mediumpurple)
                     );
                     context.SaveChanges();
                 }

@@ -1,6 +1,8 @@
 using BlogApp.Data;
 using BlogApp.Data.Abstract;
+using BlogApp.Data.Abstract.BusinessRules;
 using BlogApp.Data.Concrete;
+using BlogApp.Data.Concrete.BusinessRules;
 using BlogApp.Data.Concrete.EfCore;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
@@ -20,6 +22,8 @@ builder.Services.AddScoped<ITagRepository, EfTagRepository>();
 builder.Services.AddScoped<ICommentRepository, EfCommentRepository>();
 builder.Services.AddScoped<IUserRepository, EfUserRepository>();
 
+builder.Services.AddScoped<ITagBusinessRules, TagBusinessRules>();
+
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie();
 
 var app = builder.Build();
@@ -37,15 +41,20 @@ app.MapControllerRoute(
     pattern: "/admin/home",
     defaults: new { controller = "Admin", action = "Home" });
 
-    app.MapControllerRoute(
+app.MapControllerRoute(
     name: "/admin/edit",
     pattern: "/admin/edit/{url}",
     defaults: new { controller = "Admin", action = "Edit" });
 
-    app.MapControllerRoute(
+app.MapControllerRoute(
     name: "/admin/delete",
     pattern: "/admin/delete/{url}",
     defaults: new { controller = "Admin", action = "Delete" });
+
+    app.MapControllerRoute(
+    name: "/admin/createTag",
+    pattern: "/admin/createTag",
+    defaults: new { controller = "Admin", action = "CreateTag" });
 
 app.MapControllerRoute(
     name: "user/register",

@@ -35,7 +35,7 @@ namespace BlogApp.Entity
 
     public enum TagColors
     {
-        primary, secondary, success, danger, warning, info, light, dark
+        grey, cornflowerblue, cadetblue, darkgoldenrod, hotpink, mediumpurple
     }
 
 }

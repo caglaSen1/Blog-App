@@ -66,6 +66,7 @@ namespace BlogApp.Controllers
                         CookieAuthenticationDefaults.AuthenticationScheme,
                         new ClaimsPrincipal(claimsIdentity), autProperties
                     );
+                    
                     return RedirectToAction("List", "Blog");
                 }
                 else

@@ -1,6 +1,8 @@
 using BlogApp.Data.Abstract;
 using Microsoft.AspNetCore.Mvc;
 using BlogApp.Models;
+using BlogApp.Entity;
+using BlogApp.Data.Abstract.BusinessRules;
 
 namespace BlogApp.Controllers
 {
@@ -11,25 +13,28 @@ namespace BlogApp.Controllers
         private readonly IUserRepository _userRepository;
         private readonly ICommentRepository _commentRepository;
         private readonly ITagRepository _tagRepository;
+        private readonly ITagBusinessRules _tagBusinessRules;
 
-        public AdminController(IBlogRepository blogRepository, IUserRepository userRepository, ICommentRepository commentRepository, ITagRepository tagRepository)
+        public AdminController(IBlogRepository blogRepository, IUserRepository userRepository, ICommentRepository commentRepository, ITagRepository tagRepository, ITagBusinessRules tagBusinessRules)
         {
             _blogRepository = blogRepository;
             _userRepository = userRepository;
             _commentRepository = commentRepository;
             _tagRepository = tagRepository;
+            _tagBusinessRules = tagBusinessRules;
         }
 
         public async Task<IActionResult> Home()
         {
 
-            var ManagementViewModel = new ManagementViewModel{
+            var ManagementViewModel = new ManagementViewModel
+            {
                 Blogs = await _blogRepository.GetAll(),
                 Tags = await _tagRepository.GetAll(),
                 Users = await _userRepository.GetAll(),
                 Comments = await _commentRepository.GetAll()
             };
-                        
+
             return View(ManagementViewModel);
         }
 
@@ -124,6 +129,48 @@ namespace BlogApp.Controllers
             _blogRepository.Delete(blogToDelete);
             return RedirectToAction("Home");
         }
-        
+
+        public async Task<IActionResult> CreateTag()
+        {
+            var model = new TagCreateViewModel
+            {
+                Colors = Enum.GetValues(typeof(TagColors))
+                            .Cast<TagColors>()
+                            .Select(tc => tc.ToString())
+                            .ToList()
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateTag(TagCreateViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                if (_tagBusinessRules.IsTagExistWithName(model.Name) == false)
+                {
+                    var tagColor = Enum.Parse<TagColors>(model.SelectedColorStr);
+                    var tag = new Tag(model.Name, tagColor);
+
+                    _tagRepository.Add(tag);
+                    return RedirectToAction("Home");
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Bu isimde bir etiket zaten mevcut.");
+                }
+
+            }
+
+            model.Colors = Enum.GetValues(typeof(TagColors))
+                       .Cast<TagColors>()
+                       .Select(tc => tc.ToString())
+                       .ToList();
+
+
+            return View(model);
+        }
+
     }
 }
