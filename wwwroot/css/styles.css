@@ -8,6 +8,9 @@ a{
   width: 100px;
   height: 100px;
 }
-#myHeaderBackground{
+#myHeader{
   background-color: #cf99c6
+}
+#myAdminHeader{
+  background-color: #4e2a7b;
 }

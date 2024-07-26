@@ -17,28 +17,28 @@
     {
         @if (User.FindFirstValue(ClaimTypes.Role) == "admin")
         {
-            <header id="myHeaderBackground" class="p-3 mb-3 border-bottom">
+            <header id="myAdminHeader" class="p-3 mb-3 border-bottom">
                 <div class="container">
                     <div class="d-flex flex-wrap align-items-center justify-content-between">
                         <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 link-body-emphasis text-decoration-none">
-                            <h3>Bloghub Admin Paneli</h3>
+                            <h3 class="text-white">Bloghub Admin Paneli</h3>
                             <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap">
                                 <use xlink:href="#bootstrap" />
                             </svg>
                         </a>
 
                         <ul class="nav col-lg-auto mb-2 justify-content-end mb-md-0">
-                            <li><a href="/admin/home" class="nav-link px-2 link-body-emphasis">Yönetim</a></li>
-                            <li><a href="/blog/list" class="nav-link px-2 link-body-emphasis">Bloglar</a></li>
-                            <li><a href="/user/logout" class="nav-link px-2 link-body-emphasis">Çıkış</a></li>
+                            <li><a href="/admin/home" class="nav-link px-2 link-body-emphasis text-white">Yönetim</a></li>
+                            <li><a href="/blog/list" class="nav-link px-2 link-body-emphasis text-white">Bloglar</a></li>
+                            <li><a href="/user/logout" class="nav-link px-2 link-body-emphasis text-white">Çıkış</a></li>
                         </ul>
-                    </div>
+                    </div> 
                 </div>
             </header>
         }
         else
         {
-            <header id="myHeaderBackground" class="p-3 mb-3 border-bottom">
+            <header id="myHeader" class="p-3 mb-3 border-bottom">
                 <div class="container">
                     <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
                         <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 link-body-emphasis text-decoration-none"><h2>Bloghub</h2>
@@ -79,7 +79,7 @@
     }
     else
     {
-        <header id="myHeaderBackground" class="p-3 ">
+        <header id="myHeader" class="p-3 ">
             <div class="container">
                 <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
                     <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">

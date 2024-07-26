@@ -17,6 +17,8 @@ namespace BlogApp.Models{
         [Required(ErrorMessage = "Lütfen kullanıcı adınızı giriniz.")]
         public string UserName {get;set;}
 
+        [Display(Name = "User Image")]
+        public string? Image { get; set; }
         
         [EmailAddress]
         [Display(Name = "Eposta")]
@@ -30,7 +32,7 @@ namespace BlogApp.Models{
         public string Password {get;set;}
 
         [DataType(DataType.Password)]
-        [StringLength(20, MinimumLength = 6)]
+        [StringLength(20, ErrorMessage = "{0} alanı en az {2} an çok {1} karakter uzunluğunda olmalıdır.", MinimumLength = 6)]
         [Compare(nameof(Password), ErrorMessage = "Palolalarınız eşleşmedi.")]
         [Display(Name = "Parola Tekrar")]
         [Required(ErrorMessage = "Lütfen parolanızı tekrar giriniz.")]

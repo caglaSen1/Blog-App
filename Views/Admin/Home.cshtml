@@ -3,152 +3,164 @@
 <div class="container mt-4">
     <div class="row mb-3 text-center">
         <div class="col">
-            <a class="btn btn-primary w-100 custom-btn" data-bs-toggle="collapse" href="#collapseExample1" role="button"
+            <a class="btn w-100 custom-btn" data-bs-toggle="collapse" href="#collapseExample1" role="button"
                 aria-expanded="false" aria-controls="collapseExample1">
                 Bloglar
             </a>
         </div>
         <div class="col">
-            <a class="btn btn-primary w-100 custom-btn" data-bs-toggle="collapse" href="#collapseExample2" role="button"
+            <a class="btn w-100 custom-btn" data-bs-toggle="collapse" href="#collapseExample2" role="button"
                 aria-expanded="false" aria-controls="collapseExample2">
                 Kullanıcılar
             </a>
         </div>
         <div class="col">
-            <a class="btn btn-primary w-100 custom-btn" data-bs-toggle="collapse" href="#collapseExample3" role="button"
+            <a class="btn w-100 custom-btn" data-bs-toggle="collapse" href="#collapseExample3" role="button"
                 aria-expanded="false" aria-controls="collapseExample3">
                 Etiketler
             </a>
         </div>
         <div class="col">
-            <a class="btn btn-primary w-100 custom-btn" data-bs-toggle="collapse" href="#collapseExample4" role="button"
+            <a class="btn w-100 custom-btn" data-bs-toggle="collapse" href="#collapseExample4" role="button"
                 aria-expanded="false" aria-controls="collapseExample4">
                 Yorumlar
             </a>
         </div>
     </div>
 
-    <div class="collapse" id="collapseExample1">
-        <div class="card-body">
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th style="width: 125px;">Fotoğraf</th>
-                        <th>Başlık</th>
-                        <th>Aktif</th>
-                        <th style="width: 150px;">Güncelle/Sil</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in Model.Blogs)
-                    {
-                        <tr>
-                            <td><img src="~/img/@item.Image" class="img-fluid" alt=""></td>
-                            <td>@item.Title</td>
-                            <td>@item.IsActive</td>
-                            <td>
-                                <a href="/admin/edit/@(item.Url)" class="btn btn-warning">Güncelle</a>
-                                <a href="/admin/delete/@item.Url" class="btn btn-danger">Sil</a>
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
+    <div class="accordion" id="managementAccordion">
+        <div class="accordion-item">
+            <div class="collapse" id="collapseExample1" data-bs-parent="#managementAccordion">
+                <div class="card-body">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th style="width: 125px;">Fotoğraf</th>
+                                <th>Başlık</th>
+                                <th>Aktif</th>
+                                <th style="width: 150px;">Güncelle/Sil</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.Blogs)
+                            {
+                                <tr>
+                                    <td><img src="~/img/@item.Image" class="img-fluid" alt=""></td>
+                                    <td>@item.Title</td>
+                                    <td>@item.IsActive</td>
+                                    <td>
+                                        <a href="/admin/edit/@(item.Url)" class="btn btn-update">Güncelle</a>
+                                        <a href="/admin/delete/@item.Url" class="btn btn-delete">Sil</a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
-    </div>
 
-    <div class="collapse" id="collapseExample2">
-        <div class="card-body">
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th style="width: 125px;">Fotoğraf</th>
-                        <th>Kullanıcı Adı</th>
-                        <th>Email</th>
-                        <th>Aktif</th>
-                        <th style="width: 150px;">Güncelle/Sil</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in Model.Users)
-                    {
-                        <tr>
-                            <td><img src="~/img/@item.Image" class="img-fluid" alt=""></td>
-                            <td>@item.UserName</td>
-                            <td>@item.Email</td>
-                            <td>@item.IsActive</td>
-                            <td>
-                                <a href="/" class="btn btn-warning">Güncelle</a>
-                                <a href="/" class="btn btn-danger">Sil</a>
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
+        <div class="accordion-item">
+            <div class="collapse" id="collapseExample2" data-bs-parent="#managementAccordion">
+                <div class="card-body">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th style="width: 125px;">Fotoğraf</th>
+                                <th>Kullanıcı Adı</th>
+                                <th>Email</th>
+                                <th>Aktif</th>
+                                <th style="width: 150px;">Güncelle/Sil</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.Users)
+                            {
+                                <tr>
+                                    <td><img src="~/img/@item.Image" class="img-fluid" alt=""></td>
+                                    <td>@item.UserName</td>
+                                    <td>@item.Email</td>
+                                    <td>@item.IsActive</td>
+                                    <td>
+                                        <a href="/" class="btn btn-update">Güncelle</a>
+                                        <a href="/" class="btn btn-delete">Sil</a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
-    </div>
 
-    <div class="collapse" id="collapseExample3">
-        <div class="card-body">
-            <table class="table table-bordered">
-                <a href="/admin/createTag" class="btn btn-success mb-3">Yeni Etiket Ekle</a>
-                <thead>
-                    <tr>
-                        <th>Ad</th>
-                        <th>Aktif</th>
-                        <th style="width: 150px;">Güncelle/Sil</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in Model.Tags)
-                    {
-                        <tr>
-                            <td>@item.Name</td>
-                            <td>@item.IsActive</td>
-                            <td>
-                                <a href="/" class="btn btn-warning">Güncelle</a>
-                                <a href="/" class="btn btn-danger">Sil</a>
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
+        <div class="accordion-item">
+            <div class="collapse" id="collapseExample3" data-bs-parent="#managementAccordion">
+                <div class="card-body">
+                    <a href="/admin/createTag" class="btn btn-create m-3">Yeni Etiket Ekle</a>
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Ad</th>
+                                <th>Aktif</th>
+                                <th style="width: 150px;">Güncelle/Sil</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.Tags)
+                            {
+                                <tr>
+                                    <td>@item.Name</td>
+                                    <td>@item.IsActive</td>
+                                    <td>
+                                        <a href="/" class="btn btn-update">Güncelle</a>
+                                        <a href="/" class="btn btn-delete">Sil</a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
-    </div>
 
-    <div class="collapse" id="collapseExample4">
-        <div class="card-body">
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th>Yazar</th>
-                        <th>Text</th>
-                        <th>Tarih</th>
-                        <th>Aktif</th>
-                        <th style="width: 150px;">Sil</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in Model.Comments)
-                    {
-                        <tr>
-                            <td>@item.User</td>
-                            <td>@item.Text</td>
-                            <td>@item.CreatedAt</td>
-                            <td>@item.IsActive</td>
-                            <td>
-                                <a href="/" class="btn btn-danger">Sil</a>
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
+        <div class="accordion-item">
+            <div class="collapse" id="collapseExample4" data-bs-parent="#managementAccordion">
+                <div class="card-body">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Yazar</th>
+                                <th>Text</th>
+                                <th>Tarih</th>
+                                <th>Aktif</th>
+                                <th style="width: 150px;">Sil</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.Comments)
+                            {
+                                <tr>
+                                    <td>@item.User</td>
+                                    <td>@item.Text</td>
+                                    <td>@item.CreatedAt</td>
+                                    <td>@item.IsActive</td>
+                                    <td>
+                                        <a href="/" class="btn btn-delete">Sil</a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
 </div>
 
 <style>
     .custom-btn {
+        background-color: #4e2a7b;
+        color: white;
         border-radius: 8px;
         height: 50px;
         font-size: 16px;
@@ -156,12 +168,47 @@
         align-items: center;
         justify-content: center;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        transition: transform 0.2s ease-in-out;
+        transition: transform 0.2s ease-in-out, background-color 0.2s;
     }
 
-    .custom-btn:hover {
+    .custom-btn:hover,
+    .btn-update:hover,
+    .btn-delete:hover,
+    .btn-create:hover {
         transform: scale(1.05);
+        background-color: #6f42c1;
     }
 
-    
+    .custom-btn:focus,
+    .custom-btn.active,
+    .btn-update:focus,
+    .btn-update.active,
+    .btn-delete:focus,
+    .btn-delete.active,
+    .btn-create:focus,
+    .btn-create.active {
+        background-color: #8a63d2;
+        color: white;
+        outline: none;
+        box-shadow: none;
+    }
+
+    .btn-update,
+    .btn-delete,
+    .btn-create {
+        background-color: #6f42c1;
+        color: white;
+        border-radius: 5px;
+    }
+
+    .btn-update:hover,
+    .btn-delete:hover,
+    .btn-create:hover {
+        color: white;
+    }
+
+    .btn-create {
+        display: inline-block;
+        float: right;
+    }
 </style>

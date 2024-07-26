@@ -18,7 +18,7 @@ namespace BlogApp.Controllers
             _userRepository = userRepository;
         }
 
-        
+
         public async Task<IActionResult> Logout()
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
@@ -66,7 +66,7 @@ namespace BlogApp.Controllers
                         CookieAuthenticationDefaults.AuthenticationScheme,
                         new ClaimsPrincipal(claimsIdentity), autProperties
                     );
-                    
+
                     return RedirectToAction("List", "Blog");
                 }
                 else
@@ -84,11 +84,51 @@ namespace BlogApp.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Register(RegisterViewModel model)
+        public async Task<IActionResult> Register(RegisterViewModel model, IFormFile imageFile)
         {
 
             if (ModelState.IsValid)
             {
+                //const int maxFileSize = 2 * 1024;
+                var allowenExtensions = new[] { ".jpg", ".png", ".jpeg" };
+                if (imageFile != null)
+                {
+
+                    /*if (imageFile.Length > maxFileSize)
+                    {
+                        ModelState.AddModelError("", "Dosya boyutu 2 MB den küçük olmalıdır.");
+                    }*/
+
+                    var extensions = Path.GetExtension(imageFile.FileName).ToLowerInvariant();
+
+                    if (!allowenExtensions.Contains(extensions))
+                    {
+                        ModelState.AddModelError("", "Geçerli bir resim seçiniz!");
+                    }
+                    else
+                    {
+                        var randomFileName = string.Format($"{Guid.NewGuid().ToString()}{extensions}");
+                        var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/img", randomFileName);
+
+                        try
+                        {
+                            using (var stream = new FileStream(path, FileMode.Create))
+                            {
+                                await imageFile.CopyToAsync(stream);
+                            }
+                            model.Image = randomFileName;
+                        }
+                        catch
+                        {
+                            ModelState.AddModelError("", "Dosya yüklenirken bir hata oluştu.");
+                        }
+                    }
+                }
+                else
+                {
+                    model.Image = "defaultUser.png";
+                }
+
                 if (await _userRepository.GetByUserName(model.UserName) != null)
                 {
                     ModelState.AddModelError("", "Bu kullanıcı adı kullanımda.");
@@ -101,22 +141,27 @@ namespace BlogApp.Controllers
                 }
                 else
                 {
-                    _userRepository.CreateUser(new User(model.UserName, model.FirstName, model.LastName, model.Email, model.Password, null));
+                    _userRepository.CreateUser(new User(model.UserName, model.FirstName, model.LastName, model.Email, model.Password, model.Image));
 
                     return RedirectToAction("Login");
                 }
-            }else{
+            }
+            else
+            {
                 return View(model);
             }
         }
 
-        public async Task<IActionResult> Profile(string userName){
-            if(string.IsNullOrEmpty(userName)){
+        public async Task<IActionResult> Profile(string userName)
+        {
+            if (string.IsNullOrEmpty(userName))
+            {
                 return NotFound();
             }
             var user = await _userRepository.GetByUserName(userName);
 
-            if(user==null){
+            if (user == null)
+            {
                 return NotFound();
             }
 

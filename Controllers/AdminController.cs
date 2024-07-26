@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using BlogApp.Models;
 using BlogApp.Entity;
 using BlogApp.Data.Abstract.BusinessRules;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BlogApp.Controllers
 {
@@ -24,6 +25,7 @@ namespace BlogApp.Controllers
             _tagBusinessRules = tagBusinessRules;
         }
 
+        [Authorize]
         public async Task<IActionResult> Home()
         {
 
@@ -38,6 +40,7 @@ namespace BlogApp.Controllers
             return View(ManagementViewModel);
         }
 
+        [Authorize]
         public async Task<IActionResult> Edit(string url)
         {
             var blog = await _blogRepository.GetByUrl(url);
@@ -57,6 +60,7 @@ namespace BlogApp.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> Edit(string url, BlogEditViewModel model, IFormFile imageFile)
         {
             var blog = await _blogRepository.GetByUrl(url);
@@ -108,6 +112,7 @@ namespace BlogApp.Controllers
             return RedirectToAction("Home");
         }
 
+        [Authorize]
         public async Task<IActionResult> Delete(string url)
         {
 
@@ -117,6 +122,7 @@ namespace BlogApp.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> Delete(int id)
         {
             var blogToDelete = await _blogRepository.GetById(id);
@@ -130,6 +136,7 @@ namespace BlogApp.Controllers
             return RedirectToAction("Home");
         }
 
+        [Authorize]
         public async Task<IActionResult> CreateTag()
         {
             var model = new TagCreateViewModel
@@ -144,6 +151,7 @@ namespace BlogApp.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> CreateTag(TagCreateViewModel model)
         {
             if (ModelState.IsValid)

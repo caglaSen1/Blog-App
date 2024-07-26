@@ -17,8 +17,16 @@
       "PackagePath": "staticwebassets\\img\\1.png"
     },
     {
+      "Id": "E:\\Full_Stack_Bootcamp\\Final_Project\\BlogApp\\wwwroot\\img\\1686f8f8-0b62-4400-b73e-70380f1e047a.jpg",
+      "PackagePath": "staticwebassets\\img\\1686f8f8-0b62-4400-b73e-70380f1e047a.jpg"
+    },
+    {
       "Id": "E:\\Full_Stack_Bootcamp\\Final_Project\\BlogApp\\wwwroot\\img\\2.png",
       "PackagePath": "staticwebassets\\img\\2.png"
+    },
+    {
+      "Id": "E:\\Full_Stack_Bootcamp\\Final_Project\\BlogApp\\wwwroot\\img\\21e3d367-4ae1-4210-97cd-6abb8a379e18.jpg",
+      "PackagePath": "staticwebassets\\img\\21e3d367-4ae1-4210-97cd-6abb8a379e18.jpg"
     },
     {
       "Id": "E:\\Full_Stack_Bootcamp\\Final_Project\\BlogApp\\wwwroot\\img\\2f9ac86b-21d9-4507-bf15-7a49ddf90508.png",
@@ -77,6 +85,10 @@
       "PackagePath": "staticwebassets\\img\\avatar.jpg"
     },
     {
+      "Id": "E:\\Full_Stack_Bootcamp\\Final_Project\\BlogApp\\wwwroot\\img\\b1bab71b-dc12-41cb-bfae-544be8581b0d.jpg",
+      "PackagePath": "staticwebassets\\img\\b1bab71b-dc12-41cb-bfae-544be8581b0d.jpg"
+    },
+    {
       "Id": "E:\\Full_Stack_Bootcamp\\Final_Project\\BlogApp\\wwwroot\\img\\b53a0796-0828-4399-88fd-5299f1ec7305.png",
       "PackagePath": "staticwebassets\\img\\b53a0796-0828-4399-88fd-5299f1ec7305.png"
     },
@@ -95,6 +107,14 @@
     {
       "Id": "E:\\Full_Stack_Bootcamp\\Final_Project\\BlogApp\\wwwroot\\img\\defaultUser.png",
       "PackagePath": "staticwebassets\\img\\defaultUser.png"
+    },
+    {
+      "Id": "E:\\Full_Stack_Bootcamp\\Final_Project\\BlogApp\\wwwroot\\img\\e0a2fc98-ee16-4a61-996e-840540987be2.jpg",
+      "PackagePath": "staticwebassets\\img\\e0a2fc98-ee16-4a61-996e-840540987be2.jpg"
+    },
+    {
+      "Id": "E:\\Full_Stack_Bootcamp\\Final_Project\\BlogApp\\wwwroot\\img\\e2766235-2385-4662-bede-3abb10498766.jpg",
+      "PackagePath": "staticwebassets\\img\\e2766235-2385-4662-bede-3abb10498766.jpg"
     },
     {
       "Id": "E:\\Full_Stack_Bootcamp\\Final_Project\\BlogApp\\wwwroot\\img\\e34e17ef-bdd9-4248-9b4a-bea62dd4d91d.png",

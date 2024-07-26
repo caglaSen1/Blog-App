@@ -4,6 +4,7 @@ using BlogApp.Entity;
 using BlogApp.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BlogApp.Controllers
 {
@@ -24,6 +25,7 @@ namespace BlogApp.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> Create()
         {
             var tags = await _tagRepository.GetAll();
@@ -36,6 +38,7 @@ namespace BlogApp.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> Create(BlogCreateViewModel model, IFormFile imageFile)
         {
             /*if (!ModelState.IsValid)
@@ -135,6 +138,7 @@ namespace BlogApp.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public JsonResult AddComment(int blogId, string text)
         {
             var userIdValue = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -160,6 +164,7 @@ namespace BlogApp.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public JsonResult Like(int blogId)
         {
             try
@@ -174,6 +179,7 @@ namespace BlogApp.Controllers
         }
 
 
+        [Authorize]
         public async Task<IActionResult> Edit(string url)
         {
             var blog = await _blogRepository.GetByUrl(url);
@@ -193,6 +199,7 @@ namespace BlogApp.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> Edit(string url, BlogEditViewModel model, IFormFile imageFile)
         {
             var blog = await _blogRepository.GetByUrl(url);
@@ -244,6 +251,7 @@ namespace BlogApp.Controllers
             return RedirectToAction("Manage");
         }
 
+        [Authorize]
         public async Task<IActionResult> Manage(string tagUrl, string searchString)
         {
             var userIdValue = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -274,6 +282,7 @@ namespace BlogApp.Controllers
             });
         }
 
+        [Authorize]
         public async Task<IActionResult> Delete(string url)
         {
 
@@ -283,6 +292,7 @@ namespace BlogApp.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> Delete(int id)
         {
             var blogToDelete = await _blogRepository.GetById(id);
