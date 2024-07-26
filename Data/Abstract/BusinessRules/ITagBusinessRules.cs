@@ -4,6 +4,6 @@ namespace BlogApp.Data.Abstract.BusinessRules
 {
     public interface ITagBusinessRules
     {
-        bool IsTagExistWithName(string name);
+        bool AnyTagExistWithName(string name);
     }
 }

@@ -23,6 +23,7 @@ builder.Services.AddScoped<ICommentRepository, EfCommentRepository>();
 builder.Services.AddScoped<IUserRepository, EfUserRepository>();
 
 builder.Services.AddScoped<ITagBusinessRules, TagBusinessRules>();
+builder.Services.AddScoped<IBlogBusinessRules, BlogBusinessRules>();
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie();
 

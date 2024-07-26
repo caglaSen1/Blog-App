@@ -1,16 +1,36 @@
 body {
-  background-color:  #e3dde2
+  background-color: #e3dde2
 }
-a{
+
+a {
   text-decoration: none;
 }
-.avatar{
+
+.avatar {
   width: 100px;
   height: 100px;
 }
-#myHeader{
+
+#myHeader {
   background-color: #cf99c6
 }
-#myAdminHeader{
+
+#myAdminHeader {
   background-color: #4e2a7b;
+}
+
+.toast-container {
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+  z-index: 1050;
+}
+
+.toast {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.toast .btn-close {
+  color: #155724;
 }

@@ -109,6 +109,7 @@ namespace BlogApp.Controllers
 
             _blogRepository.Update(blog);
 
+            TempData["SuccessMessage"] = "Blog başarıyla güncellendi.";
             return RedirectToAction("Home");
         }
 
@@ -133,6 +134,8 @@ namespace BlogApp.Controllers
             }
 
             _blogRepository.Delete(blogToDelete);
+
+            TempData["SuccessMessage"] = "Blog başarıyla silindi.";
             return RedirectToAction("Home");
         }
 
@@ -156,12 +159,14 @@ namespace BlogApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (_tagBusinessRules.IsTagExistWithName(model.Name) == false)
+                if (_tagBusinessRules.AnyTagExistWithName(model.Name) == false)
                 {
                     var tagColor = Enum.Parse<TagColors>(model.SelectedColorStr);
                     var tag = new Tag(model.Name, tagColor);
 
                     _tagRepository.Add(tag);
+
+                    TempData["SuccessMessage"] = "Etiket başarıyla oluşturuldu.";
                     return RedirectToAction("Home");
                 }
                 else
@@ -177,6 +182,7 @@ namespace BlogApp.Controllers
                        .ToList();
 
 
+            TempData["Message"] = "Etiket başarıyla oluşturuldu.";
             return View(model);
         }
 

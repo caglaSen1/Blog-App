@@ -3,7 +3,7 @@
 <h2>Blog Oluşturun</h2>
 <hr>
 <form asp-action="Create" method="post" enctype="multipart/form-data">
-    <div asp-validation-summary="ModelOnly"></div>
+    <div asp-validation-summary="All" class="text-danger mb-3"></div>
     <div class="row">
         <div class="col-lg-8">
             <div class="mb-3">
@@ -17,11 +17,12 @@
                 <input asp-for="BlogDescription" class="form-control">
                 <span asp-validation-for="BlogDescription" class="text-danger"></span>
             </div>
-
+            <span asp-validation-for="BlogContent" class="text-danger"></span>
             <div class="mb-3">
+
                 <label asp-for="BlogContent" class="form-label">İçerik</label>
                 <textarea asp-for="BlogContent" class="form-control"></textarea>
-                <span asp-validation-for="BlogContent" class="text-danger"></span>
+
             </div>
         </div>
 

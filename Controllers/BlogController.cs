@@ -2,6 +2,7 @@ using System.Security.Claims;
 using BlogApp.Data.Abstract;
 using BlogApp.Entity;
 using BlogApp.Models;
+using BlogApp.Data.Abstract.BusinessRules;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Authorization;
@@ -16,12 +17,14 @@ namespace BlogApp.Controllers
         private readonly ICommentRepository _commentRepository;
 
         private readonly ITagRepository _tagRepository;
+        private readonly IBlogBusinessRules _blogBusinessRules;
 
-        public BlogController(IBlogRepository blogRepository, ICommentRepository commentRepository, ITagRepository tagRepository)
+        public BlogController(IBlogRepository blogRepository, ICommentRepository commentRepository, ITagRepository tagRepository, IBlogBusinessRules blogBusinessRules)
         {
             _blogRepository = blogRepository;
             _commentRepository = commentRepository;
             _tagRepository = tagRepository;
+            _blogBusinessRules = blogBusinessRules;
         }
 
         [HttpGet]
@@ -43,6 +46,11 @@ namespace BlogApp.Controllers
         {
             if (ModelState.IsValid)
             {
+                if (_blogBusinessRules.AnyBlogExistWithTitle(model.BlogTitle) == true)
+                {
+                    ModelState.AddModelError("", "Bu başlıkta bir blog bulunuyor, lütfen başka bir başlık giriniz.");
+                    return View(model);
+                }
                 //const int maxFileSize = 2 * 1024;
                 var allowenExtensions = new[] { ".jpg", ".png", ".jpeg" };
                 if (imageFile != null)
@@ -98,10 +106,11 @@ namespace BlogApp.Controllers
 
                 _blogRepository.Add(blog);
 
+                TempData["SuccessMessage"] = "Blog başarıyla oluşturuldu.";
                 return RedirectToAction("List");
             }
             else
-            {                
+            {
                 model.Tags = await _tagRepository.GetAll();
                 return View(model);
             }
@@ -202,8 +211,14 @@ namespace BlogApp.Controllers
 
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult> Edit(string url, BlogEditViewModel model, IFormFile imageFile)
+        public async Task<IActionResult> Edit(string url, BlogEditViewModel model, IFormFile? imageFile)
         {
+            if (_blogBusinessRules.AnyBlogExistWithTitle(model.BlogTitle) == true)
+            {
+                ModelState.AddModelError("", "Bu başlıkta bir blog bulunuyor, lütfen başka bir başlık giriniz.");
+                return View(model);
+            }
+
             var blog = await _blogRepository.GetByUrl(url);
 
             if (blog == null)
@@ -250,6 +265,7 @@ namespace BlogApp.Controllers
 
             _blogRepository.Update(blog);
 
+            TempData["SuccessMessage"] = "Blog başarıyla güncellendi.";
             return RedirectToAction("Manage");
         }
 
@@ -305,6 +321,8 @@ namespace BlogApp.Controllers
             }
 
             _blogRepository.Delete(blogToDelete);
+
+            TempData["SuccessMessage"] = "Blog başarıyla silindi.";
             return RedirectToAction("Manage");
         }
 

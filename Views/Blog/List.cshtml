@@ -1,7 +1,21 @@
 @model BlogViewModel
-
 @{
     ViewBag.FormAction = "/blog/list";
+    var successMessage = TempData["SuccessMessage"] as string;
+}
+
+@if (!string.IsNullOrEmpty(successMessage))
+{
+    <div class="toast-container position-fixed bottom-0 end-0 p-3" style="z-index: 1050;">
+        <div class="toast show align-items-center text-white bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="d-flex">
+                <div class="toast-body">
+                    @successMessage
+                </div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+        </div>
+    </div>
 }
 @Html.Partial("_FilterAndSearch", Model.Tags)
 
@@ -18,7 +32,7 @@
 
                         <div class="row g-0">
                             <div class="col-md-4">
-                                <img src="~/img/@blog.Image" style="width: 100%; height: 100%; object-fit: cover;" alt="...">
+                                <img src="~/img/@blog.Image" style="max-height: 200px; width: fit-content; width: 100%; height: 100%; object-fit: cover;" alt="...">
                             </div>
                             <div class="col-md-8">
                                 <div class="card-body">
@@ -64,3 +78,12 @@
     </div>
 </div>
 
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var toastElList = [].slice.call(document.querySelectorAll('.toast'))
+        var toastList = toastElList.map(function (toastEl) {
+            return new bootstrap.Toast(toastEl)
+        })
+        toastList.forEach(toast => toast.show())
+    });
+</script>
