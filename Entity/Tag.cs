@@ -12,7 +12,7 @@ namespace BlogApp.Entity
         public string Url { get; set; }
 
         [Display(Name = "Tag Name")]
-        [Required(ErrorMessage = "Name is required.")]
+        [Required(ErrorMessage = "İsim alanı boş bırakılamaz.")]
         public string Name { get; set; } = null!;
 
         [Display(Name = "Tag Color")]

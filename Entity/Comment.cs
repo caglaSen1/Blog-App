@@ -12,7 +12,7 @@ namespace BlogApp.Entity
         public string Url { get; set; }
 
         [Display(Name = "Comment Text")]
-        [Required(ErrorMessage = "Text is required.")]
+        [Required(ErrorMessage = "Metin alanı boş bırakılamaz.")]
         public string? Text { get; set; } 
 
         [Display(Name = "Comment Created At")]

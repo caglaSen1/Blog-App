@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "kx5YRCxveXxnSeb6Mhr9oqUAFtwuVbsaG1K2wCg4Jps=",
+  "Hash": "HMTJY+cZrEyxLzpFE4JSze494paMLIX2MyGayDCEW5k=",
   "Source": "BlogApp",
   "BasePath": "_content/BlogApp",
   "Mode": "Default",
@@ -568,6 +568,25 @@
       "OriginalItemSpec": "wwwroot\\img\\a2941f55f947539c07903d308a1b4fe2.jpg"
     },
     {
+      "Identity": "E:\\Full_Stack_Bootcamp\\Final_Project\\BlogApp\\wwwroot\\img\\afbc6a44-ddc5-451f-bb58-2b076151a8c7.jpg",
+      "SourceId": "BlogApp",
+      "SourceType": "Discovered",
+      "ContentRoot": "E:\\Full_Stack_Bootcamp\\Final_Project\\BlogApp\\wwwroot\\",
+      "BasePath": "_content/BlogApp",
+      "RelativePath": "img/afbc6a44-ddc5-451f-bb58-2b076151a8c7.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\img\\afbc6a44-ddc5-451f-bb58-2b076151a8c7.jpg"
+    },
+    {
       "Identity": "E:\\Full_Stack_Bootcamp\\Final_Project\\BlogApp\\wwwroot\\img\\b199e33e78993da6833dd05099c1b17b.jpg",
       "SourceId": "BlogApp",
       "SourceType": "Discovered",
@@ -851,6 +870,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\img\\f6ee4756aee86d893ce0b48975169eed.jpg"
+    },
+    {
+      "Identity": "E:\\Full_Stack_Bootcamp\\Final_Project\\BlogApp\\wwwroot\\img\\fca818b3-305f-47b5-9d62-efd2a9a9e35a.jpg",
+      "SourceId": "BlogApp",
+      "SourceType": "Discovered",
+      "ContentRoot": "E:\\Full_Stack_Bootcamp\\Final_Project\\BlogApp\\wwwroot\\",
+      "BasePath": "_content/BlogApp",
+      "RelativePath": "img/fca818b3-305f-47b5-9d62-efd2a9a9e35a.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\img\\fca818b3-305f-47b5-9d62-efd2a9a9e35a.jpg"
     },
     {
       "Identity": "E:\\Full_Stack_Bootcamp\\Final_Project\\BlogApp\\wwwroot\\img\\p1.jpg",

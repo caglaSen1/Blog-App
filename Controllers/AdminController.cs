@@ -113,15 +113,6 @@ namespace BlogApp.Controllers
             return RedirectToAction("Home");
         }
 
-        [Authorize]
-        public async Task<IActionResult> Delete(string url)
-        {
-
-            var blog = await _blogRepository.GetByUrl(url);
-
-            return View("DeleteConfirm", blog);
-        }
-
 
         [Authorize]
         public async Task<IActionResult> CreateTag()
@@ -169,11 +160,27 @@ namespace BlogApp.Controllers
             return View(model);
         }
 
-        [HttpPost]
         [Authorize]
         public async Task<IActionResult> DeleteBlog(string url)
         {
-            var blogToDelete = await _blogRepository.GetByUrl(url);
+
+            var blog = await _blogRepository.GetByUrl(url);
+
+            var model = new DeleteViewModel
+            {
+                EntityId = blog.Id,
+                EntityName = blog.Title,
+                ActionUrl = "/admin/deleteBlog"
+            };
+
+            return View("DeleteConfirm", model);
+        }
+
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> DeleteBlog(int entityId)
+        {
+            var blogToDelete = await _blogRepository.GetById(entityId);
 
             if (blogToDelete == null)
             {
@@ -186,11 +193,27 @@ namespace BlogApp.Controllers
             return RedirectToAction("Home");
         }
 
-        [HttpPost]
         [Authorize]
         public async Task<IActionResult> DeleteUser(string url)
         {
-            var userToDelete = await _userRepository.GetByUrl(url);
+
+            var user = await _userRepository.GetByUrl(url);
+
+            var model = new DeleteViewModel
+            {
+                EntityId = user.Id,
+                EntityName = user.UserName,
+                ActionUrl = "/admin/deleteUser"
+            };
+
+            return View("DeleteConfirm", model);
+        }
+
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> DeleteUser(int entityId)
+        {
+            var userToDelete = await _userRepository.GetById(entityId);
 
             if (userToDelete == null)
             {
@@ -203,11 +226,27 @@ namespace BlogApp.Controllers
             return RedirectToAction("Home");
         }
 
-        [HttpPost]
         [Authorize]
         public async Task<IActionResult> DeleteTag(string url)
         {
-            var tagToDelete = await _tagRepository.GetByUrl(url);
+
+            var tag = await _tagRepository.GetByUrl(url);
+
+            var model = new DeleteViewModel
+            {
+                EntityId = tag.Id,
+                EntityName = tag.Name,
+                ActionUrl = "/admin/deleteTag"
+            };
+
+            return View("DeleteConfirm", model);
+        }
+
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> DeleteTag(int entityId)
+        {
+            var tagToDelete = await _tagRepository.GetById(entityId);
 
             if (tagToDelete == null)
             {
@@ -220,11 +259,27 @@ namespace BlogApp.Controllers
             return RedirectToAction("Home");
         }
 
-        [HttpPost]
         [Authorize]
         public async Task<IActionResult> DeleteComment(string url)
         {
-            var commentToDelete = await _commentRepository.GetByUrl(url);
+
+            var comment = await _commentRepository.GetByUrl(url);
+
+            var model = new DeleteViewModel
+            {
+                EntityId = comment.Id,
+                EntityName = comment.Text.Substring(0, 10),
+                ActionUrl = "/admin/deleteComment"
+            };
+
+            return View("DeleteConfirm", model);
+        }
+
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> DeleteComment(int entityId)
+        {
+            var commentToDelete = await _commentRepository.GetById(entityId);
 
             if (commentToDelete == null)
             {

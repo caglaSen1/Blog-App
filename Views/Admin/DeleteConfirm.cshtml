@@ -1,19 +1,19 @@
-@model Blog
+@model DeleteViewModel
 
-<form method="post" action="/admin/delete/@Model.Id">
-    <input type="hidden" asp-for="@Model.Id">
+<form method="post" action="@Model.ActionUrl/@Model.EntityId">
+    <input type="hidden" asp-for="@Model.EntityId">
     <div class="modal modal-sheet position-static d-block p-4 py-md-5" tabindex="-1" role="dialog" id="modalSheet">
         <div class="modal-dialog" role="document">
             <div class="modal-content rounded-4 ">
                 <div class="modal-header border-bottom-0">
-                    <h1 class="modal-title fs-5"><b>@Model.Title</b></h1>
+                    <h1 class="modal-title fs-5"><b>@Model.EntityName</b></h1>
                     <a href="/admin/home" class="btn-close" aria-label="Close"></a>
                 </div>
                 <div class="modal-body py-1">
-                    <p>Bloğu silmek istediğinize emin misiniz? <br>Bu eylemin geri dönüşü olmayacaktır.</p>
+                    <p>Silmek istediğinize emin misiniz? <br>Bu eylemin geri dönüşü olmayacaktır.</p>
                 </div>
                 <div class="modal-footer flex-column align-items-stretch w-100 gap-2 pb-3 border-top-0">
-                    <button type="submit" class="btn btn-lg btn-danger">Bloğu Sil</button>
+                    <button type="submit" class="btn btn-lg btn-danger">Sil</button>
                     <a href="/admin/home" class="btn btn-lg btn-secondary">Geri Dön</a>
                 </div>
             </div>

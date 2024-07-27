@@ -1,4 +1,3 @@
-
 using BlogApp.Data.Abstract.BusinessRules;
 using BlogApp.Entity;
 using Microsoft.EntityFrameworkCore;

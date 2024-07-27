@@ -18,13 +18,6 @@ namespace BlogApp.Controllers
             _userRepository = userRepository;
         }
 
-
-        public async Task<IActionResult> Logout()
-        {
-            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-            return RedirectToAction("Login");
-        }
-
         public IActionResult Login()
         {
             if (User.Identity!.IsAuthenticated)
@@ -78,6 +71,12 @@ namespace BlogApp.Controllers
             return View(model);
         }
 
+        public async Task<IActionResult> Logout()
+        {
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            return RedirectToAction("Login");
+        }
+
         public IActionResult Register()
         {
             return View();
@@ -89,16 +88,10 @@ namespace BlogApp.Controllers
 
             if (ModelState.IsValid)
             {
-                //const int maxFileSize = 2 * 1024;
+
                 var allowenExtensions = new[] { ".jpg", ".png", ".jpeg" };
                 if (imageFile != null)
                 {
-
-                    /*if (imageFile.Length > maxFileSize)
-                    {
-                        ModelState.AddModelError("", "Dosya boyutu 2 MB den küçük olmalıdır.");
-                    }*/
-
                     var extensions = Path.GetExtension(imageFile.FileName).ToLowerInvariant();
 
                     if (!allowenExtensions.Contains(extensions))

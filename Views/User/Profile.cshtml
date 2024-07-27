@@ -14,16 +14,18 @@
             <div id="posts">
                 <h5 class="my-4">Yayınlanan Gönderiler</h5>
                 <ul class="list-group">
-                    @foreach(var blog in Model.Blogs){
-                        <li class="list-group-item"><i class="bi bi-caret-right-fill"></i><a href="/blog/details/@blog.Url">@blog.Title</a></li>
+                    @foreach (var blog in Model.Blogs)
+                    {
+                            <li class="list-group-item"><i class="bi bi-caret-right-fill"></i><a href="/blog/details/@blog.Url">@blog.Title</a></li>
                     }
                 </ul>
             </div>
             <div id="comments">
                 <h5 class="my-4">Yorumlar</h5>
                 <ul class="list-group">
-                    @foreach (var comment in Model.Comments){
-                        <li class="list-group-item"><i class="bi bi-caret-right-text-fill"></i>@comment.Text <i><u>[<a href="/blog/details/@comment.Blog.Url">@comment.Blog.Title</a>]</u></i></li>
+                    @foreach (var comment in Model.Comments)
+                    {
+                            <li class="list-group-item"><i class="bi bi-caret-right-text-fill"></i>@comment.Text <i><u>[<a href="/blog/details/@comment.Blog.Url">@comment.Blog.Title</a>]</u></i></li>
                     }
                 </ul>
             </div>

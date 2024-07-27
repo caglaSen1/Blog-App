@@ -13,11 +13,11 @@ namespace BlogApp.Entity
         public string Url { get; set; }
 
         [Display(Name = "Blog Title")]
-        [Required(ErrorMessage = "Title is required.")]
+        [Required(ErrorMessage = "Başlık alanı boş bırakılamaz.")]
         public string Title { get; set; }
 
         [Display(Name = "Blog Content")]
-        [Required(ErrorMessage = "Content is required.")]
+        [Required(ErrorMessage = "İçerik alanı boş bırakılamaz.")]
         public string Content { get; set; }
 
         [Display(Name = "Blog Description")]

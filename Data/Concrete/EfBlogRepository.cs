@@ -24,7 +24,7 @@ namespace BlogApp.Data.Concrete
         public async Task<PagedResult<Blog>> GetPagedBlogs(int pageNumber, int pageSize, string tagUrl, string searchString, int? userId)
         {
             var query = _context.Blogs.AsQueryable();
-            
+
             if (userId != null)
             {
                 query = query.Where(b => b.UserId == userId).AsQueryable();

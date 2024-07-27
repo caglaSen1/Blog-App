@@ -12,24 +12,24 @@ namespace BlogApp.Entity
         public string Url { get; set; }
 
         [Display(Name = "UserName")]
-        [Required(ErrorMessage = "User name is required.")]
+        [Required(ErrorMessage = "Kullanıcı adı alanı boş bırakılamaz.")]
         public string UserName { get; set; }
 
         [Display(Name = "First Name")]
-        [Required(ErrorMessage = "First name is required.")]
+        [Required(ErrorMessage = "Ad alanı boş bırakılamaz.")]
         public string FirstName { get; set; }
 
         [Display(Name = "Last Name")]
-        [Required(ErrorMessage = "Last name is required.")]
+        [Required(ErrorMessage = "Soyad alanı boş bırakılamaz.")]
         public string LastName { get; set; }
 
         [Display(Name = "User Email")]
-        [Required(ErrorMessage = "Email is required.")]
+        [Required(ErrorMessage = "Email alanı boş bırakılamaz.")]
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
 
         [Display(Name = "User Password")]
-        [Required(ErrorMessage = "Password is required.")]
+        [Required(ErrorMessage = "Şifre alanı boş bırakılamaz.")]
         [DataType(DataType.Password)]
         public string Password { get; set; }
 
