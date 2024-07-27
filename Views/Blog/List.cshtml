@@ -7,38 +7,44 @@
 @if (!string.IsNullOrEmpty(successMessage))
 {
     <div class="toast-container position-fixed bottom-0 end-0 p-3" style="z-index: 1050;">
-        <div class="toast show align-items-center text-white bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast show align-items-center text-white bg-success border-0" role="alert" aria-live="assertive"
+            aria-atomic="true">
             <div class="d-flex">
                 <div class="toast-body">
                     @successMessage
                 </div>
-                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
+                    aria-label="Close"></button>
             </div>
         </div>
     </div>
 }
-@Html.Partial("_FilterAndSearch", Model.Tags)
+@Html.Partial("_FilterAndSearch", Model)
 
 <div class="row">
     <div class="col-lg-8">
         <div class="card">
             <div class="card-header">
-                <h1 class="h4">Listed Blogs</h1>
+                <h1 class="h4">Tüm Bloglar</h1>
             </div>
             <div class="card-body">
-                @foreach (var blog in Model.Blogs)
+                @foreach (var blog in Model.PagedBlogs.Items)
                 {
                     <div class="card mb-3" style="max-width: 750px;">
 
                         <div class="row g-0">
                             <div class="col-md-4">
-                                <img src="~/img/@blog.Image" style="max-height: 200px; width: fit-content; width: 100%; height: 100%; object-fit: cover;" alt="...">
+                                <img src="~/img/@blog.Image"
+                                    style="max-height: 200px; width: fit-content; width: 100%; height: 100%; object-fit: cover;"
+                                    alt="...">
                             </div>
                             <div class="col-md-8">
                                 <div class="card-body">
                                     <a href="/blog/details/@blog.Url">
                                         <h5 class="card-title">@blog.Title</h5>
-                                        <p class="card-text" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" class="card-text">@blog.Content</p>
+                                        <p class="card-text"
+                                            style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"
+                                            class="card-text">@blog.Content</p>
                                         <p class="card-text"><small class="text-body-secondary">@blog.CreatedAt</small></p>
                                     </a>
                                 </div>
@@ -52,14 +58,20 @@
 
         <nav aria-label="Page navigation example">
             <ul class="pagination justify-content-center">
-                <li class="page-item disabled">
-                    <a class="page-link">Previous</a>
+                <li class="page-item @(Model.PagedBlogs.PageNumber == 1 ? "disabled" : "")">
+                    <a class="page-link"
+                        href="@Url.Action("List", new { pageNumber = Model.PagedBlogs.PageNumber - 1, pageSize = Model.PagedBlogs.PageSize, tagUrl = Model.SelectedTagUrl, searchString = Model.SearchString })">Previous</a>
                 </li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item">
-                    <a class="page-link" href="#">Next</a>
+                @for (int i = 1; i <= Model.PagedBlogs.TotalPages; i++)
+                {
+                    <li class="page-item @(Model.PagedBlogs.PageNumber == i ? "active" : "")">
+                        <a class="page-link"
+                            href="@Url.Action("List", new { pageNumber = i, pageSize = Model.PagedBlogs.PageSize, tagUrl = Model.SelectedTagUrl, searchString = Model.SearchString })">@i</a>
+                    </li>
+                }
+                <li class="page-item @(Model.PagedBlogs.PageNumber == Model.PagedBlogs.TotalPages ? "disabled" : "")">
+                    <a class="page-link"
+                        href="@Url.Action("List", new { pageNumber = Model.PagedBlogs.PageNumber + 1, pageSize = Model.PagedBlogs.PageSize, tagUrl = Model.SelectedTagUrl, searchString = Model.SearchString })">Next</a>
                 </li>
             </ul>
         </nav>

@@ -123,28 +123,22 @@ namespace BlogApp.Controllers
             return View(blog);
         }
 
-        public async Task<IActionResult> List(string tagUrl, string searchString)
+        public async Task<IActionResult> List(string? tagUrl, string? searchString, int pageNumber = 1, int pageSize = 5)
         {
-            var claims = User.Claims;
-            var blogs = await _blogRepository.GetAll();
-            var tags = await _tagRepository.GetAll();
 
-            if (!string.IsNullOrEmpty(tagUrl))
-            {
-                blogs = blogs.Where(b => b.Tags.Any(t => t.Url == tagUrl)).ToList();
-            }
+            var pagedBlogs = await _blogRepository.GetPagedBlogs(pageNumber, pageSize, tagUrl, searchString);
 
-            if (!string.IsNullOrEmpty(searchString))
-            {
-                blogs = blogs.Where(b => b.Title.Contains(searchString, StringComparison.OrdinalIgnoreCase)
-                                      || b.Content.Contains(searchString, StringComparison.OrdinalIgnoreCase)).ToList();
-            }
 
-            return View(new BlogViewModel
+
+            var viewModel = new BlogViewModel
             {
-                Blogs = blogs,
-                Tags = tags
-            });
+                PagedBlogs = pagedBlogs,
+                Tags = await _tagRepository.GetAll(),
+                SelectedTagUrl = tagUrl,
+                SearchString = searchString
+            };
+
+            return View(viewModel);
 
         }
 

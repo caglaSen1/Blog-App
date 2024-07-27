@@ -1,5 +1,6 @@
 using BlogApp.Data.Abstract;
 using BlogApp.Entity;
+using BlogApp.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace BlogApp.Data.Concrete
@@ -18,6 +19,33 @@ namespace BlogApp.Data.Concrete
             return await _context.Blogs
             .Include(b => b.Tags)
             .ToListAsync();
+        }
+
+        public async Task<PagedResult<Blog>> GetPagedBlogs(int pageNumber, int pageSize, string tagUrl, string searchString)
+        {
+            var query = _context.Blogs.AsQueryable();
+
+            if (!string.IsNullOrEmpty(tagUrl))
+            {
+                query = query.Where(b => b.Tags.Any(t => t.Url == tagUrl));
+            }
+
+            if (!string.IsNullOrEmpty(searchString))
+    {
+        var lowerSearchString = searchString.ToLower();
+        query = query.Where(b => b.Title.ToLower().Contains(lowerSearchString) || b.Content.ToLower().Contains(lowerSearchString));
+    }
+
+            var totalItems = await query.CountAsync();
+            var items = await query.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToListAsync();
+
+            return new PagedResult<Blog>
+            {
+                Items = items,
+                TotalItems = totalItems,
+                PageNumber = pageNumber,
+                PageSize = pageSize
+            };
         }
 
         public async Task<Blog> GetById(int id)
@@ -54,7 +82,7 @@ namespace BlogApp.Data.Concrete
         public async Task<int> GetCommentCount(int blogId)
         {
             var blog = await _context.Blogs.FindAsync(blogId);
-            
+
             return blog.Comments.Count();
         }
 

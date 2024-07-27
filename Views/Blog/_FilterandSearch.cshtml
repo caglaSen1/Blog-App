@@ -1,4 +1,4 @@
-@model IEnumerable<Tag>
+@model BlogViewModel
 
 <div class="container">
     <div class="row">
@@ -9,9 +9,9 @@
                     <div class="container">
                         <div class="row">
                             <div class="col-md-10">
-                                <select class="form-select" name="tagUrl">
+                                <select id="tagSelect" class="form-select" name="tagUrl">
                                     <option value="">Tüm Etiketler</option>
-                                    @foreach (var tag in Model)
+                                    @foreach (var tag in Model.Tags)
                                     {
                                         <option value="@tag.Url">@tag.Name</option>
                                     }
@@ -34,7 +34,7 @@
                         <div class="row">
                             <div class="col-md-10">
                                 <input type="search" class="form-control form-control-dark" placeholder="Ara..."
-                                    aria-label="Search" name="searchString">
+                                    aria-label="Search" name="searchString" value="@Model.SearchString">
                             </div>
                             <div class="col-md-2">
                                 <button class="btn btn-secondary" type="submit">Ara</button>
@@ -42,7 +42,6 @@
                         </div>
                     </div>
                 </form>
-
             </div>
         </div>
     </div>

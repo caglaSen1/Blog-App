@@ -1,4 +1,5 @@
 using BlogApp.Entity;
+using BlogApp.Models;
 using SQLitePCL;
 
 namespace BlogApp.Data.Abstract
@@ -6,6 +7,8 @@ namespace BlogApp.Data.Abstract
     public interface IBlogRepository
     {
         Task<List<Blog>> GetAll();
+
+        Task<PagedResult<Blog>> GetPagedBlogs(int pageNumber, int pageSize, string tagUrl, string search);
 
         Task<Blog> GetById(int id);
         
