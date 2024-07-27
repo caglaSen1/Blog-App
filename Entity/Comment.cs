@@ -8,6 +8,9 @@ namespace BlogApp.Entity
         [Display(Name = "Comment Id")]
         public int Id { get; set; }
 
+        [Display(Name = "Comment Url")]
+        public string Url { get; set; }
+
         [Display(Name = "Comment Text")]
         [Required(ErrorMessage = "Text is required.")]
         public string? Text { get; set; } 
@@ -31,8 +34,10 @@ namespace BlogApp.Entity
 
         public Comment(string text, int blogId, int userId)
         {
+            
             Text = text;
             CreatedAt = DateTime.Now;
+            Url = DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss-fff");
             IsActive = true;
             BlogId = blogId;
             UserId = userId;

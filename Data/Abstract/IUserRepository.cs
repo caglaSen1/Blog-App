@@ -8,6 +8,8 @@ namespace BlogApp.Data.Abstract{
 
         Task<User?> GetById(int id);
 
+        Task<User> GetByUrl(string url);
+
         Task<User?> GetByEmail(string email);
 
         Task<User?> GetByUserName(string userName);
@@ -16,6 +18,8 @@ namespace BlogApp.Data.Abstract{
 
         Task<User?> GetByEmailAndUserName(string email, string userName);
 
-        void CreateUser(User user);
+        void Create(User user);
+
+        void Delete(User user);
     }
 }

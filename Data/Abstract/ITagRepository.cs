@@ -10,10 +10,14 @@ namespace BlogApp.Data.Abstract
 
         Task<Tag> GetById(int id);
 
+        Task<Tag> GetByUrl(string url);
+
         Task<IEnumerable<Tag>> GetByIds(List<int> tagIds);
 
         Task<List<Tag>> GetPopularTags(int amount);
 
         void Add(Tag entity);
+
+        void Delete(Tag tag);
     }
 }

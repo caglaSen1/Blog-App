@@ -68,7 +68,7 @@
                                     <td>@item.IsActive</td>
                                     <td>
                                         <a href="/admin/edit/@(item.Url)" class="btn btn-update">Güncelle</a>
-                                        <a href="/admin/delete/@item.Url" class="btn btn-delete">Sil</a>
+                                        <a href="/admin/deleteBlog/@item.Url" class="btn btn-delete">Sil</a>
                                     </td>
                                 </tr>
                             }
@@ -101,7 +101,7 @@
                                     <td>@item.IsActive</td>
                                     <td>
                                         <a href="/" class="btn btn-update">Güncelle</a>
-                                        <a href="/" class="btn btn-delete">Sil</a>
+                                        <a href="/admin/deleteUser/@item.Url" class="btn btn-delete">Sil</a>
                                     </td>
                                 </tr>
                             }
@@ -110,7 +110,7 @@
                 </div>
             </div>
         </div>
-
+                                                
         <div class="accordion-item">
             <div class="collapse" id="collapseExample3" data-bs-parent="#managementAccordion">
                 <div class="card-body">
@@ -131,7 +131,7 @@
                                     <td>@item.IsActive</td>
                                     <td>
                                         <a href="/" class="btn btn-update">Güncelle</a>
-                                        <a href="/" class="btn btn-delete">Sil</a>
+                                        <a href="/admin/deleteTag/@item.Url" class="btn btn-delete">Sil</a>
                                     </td>
                                 </tr>
                             }
@@ -163,7 +163,7 @@
                                     <td>@item.CreatedAt</td>
                                     <td>@item.IsActive</td>
                                     <td>
-                                        <a href="/" class="btn btn-delete">Sil</a>
+                                        <a href="/admin/deleteComment/@item.Url" class="btn btn-delete">Sil</a>
                                     </td>
                                 </tr>
                             }

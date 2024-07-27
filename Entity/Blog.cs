@@ -9,12 +9,12 @@ namespace BlogApp.Entity
         [Display(Name = "Blog Id")]
         public int Id { get; set; }
 
+        [Display(Name = "Blog Url")]
+        public string Url { get; set; }
+
         [Display(Name = "Blog Title")]
         [Required(ErrorMessage = "Title is required.")]
         public string Title { get; set; }
-
-        [Display(Name = "Blog Url")]
-        public string Url { get; set; }
 
         [Display(Name = "Blog Content")]
         [Required(ErrorMessage = "Content is required.")]

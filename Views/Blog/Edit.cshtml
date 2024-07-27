@@ -50,3 +50,15 @@
         </div>
     </div>
 </form>
+
+@section Scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/7.2.1/tinymce.min.js"></script>
+    <script>
+        tinymce.init({
+            selector: '#BlogContent',
+            height: 400,
+            plugins: 'advlist autolink lists link image charmap print preview hr anchor pagebreak',
+            toolbar_mode: 'floating',
+        });
+    </script>
+}

@@ -7,7 +7,11 @@ namespace BlogApp.Data.Abstract{
         Task<List<Comment>> GetAll();
 
         Task<Comment> GetById(int id);
+
+        Task<Comment> GetByUrl(string url);
         
-        void CreateComment(Comment comment);
+        void Create(Comment comment);
+
+        void Delete(Comment comment);
     }
 }

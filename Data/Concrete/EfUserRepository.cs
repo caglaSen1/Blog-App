@@ -32,6 +32,15 @@ namespace BlogApp.Data.Concrete
             return null;
         }
 
+        public async Task<User> GetByUrl(string url)
+        {
+            User? user = await _context.Users
+            .FirstOrDefaultAsync(u => u.Url == url)
+            ?? throw new KeyNotFoundException($"A user with the url {url} was not found.");
+
+            return user;
+        }
+
         public async Task<User?> GetByEmail(string email)
         {
             User? user = await _context.Users
@@ -50,6 +59,7 @@ namespace BlogApp.Data.Concrete
             User? user = await _context.Users
             .Include(u => u.Blogs)
             .Include(u => u.Comments)
+            .ThenInclude(c => c.Blog) 
             .FirstOrDefaultAsync(u => u.UserName == userName);
 
             if (user != null)
@@ -86,9 +96,15 @@ namespace BlogApp.Data.Concrete
             return null;
         }
 
-        public void CreateUser(User user)
+        public void Create(User user)
         {
             _context.Users.Add(user);
+            _context.SaveChanges();
+        }
+
+        public void Delete(User user)
+        {
+            _context.Users.Remove(user);
             _context.SaveChanges();
         }
 

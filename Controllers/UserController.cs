@@ -141,7 +141,7 @@ namespace BlogApp.Controllers
                 }
                 else
                 {
-                    _userRepository.CreateUser(new User(model.UserName, model.FirstName, model.LastName, model.Email, model.Password, model.Image));
+                    _userRepository.Create(new User(model.UserName, model.FirstName, model.LastName, model.Email, model.Password, model.Image));
 
                     return RedirectToAction("Login");
                 }

@@ -12,8 +12,6 @@ namespace BlogApp.Data.Abstract
 
         Task<Blog> GetById(int id);
         
-        //Task<PagedResult<Blog>> GetPagedBlogsByUserId(int userId, int pageNumber, int pageSize, string tagUrl, string search);
-
         Task<Blog> GetByUrl(string url);
 
         Task<List<Blog>> GetBlogsByUserId(int userId);

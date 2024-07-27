@@ -8,6 +8,9 @@ namespace BlogApp.Entity
         [Display(Name = "User Id")]
         public int Id { get; set; }
 
+        [Display(Name = "User Url")]
+        public string Url { get; set; }
+
         [Display(Name = "UserName")]
         [Required(ErrorMessage = "User name is required.")]
         public string UserName { get; set; }
@@ -55,6 +58,7 @@ namespace BlogApp.Entity
         public User(string userName, string firstName, string lastName, string email, string password, string? image)
         {
             UserName = userName;
+            Url = UserName.ToLower().Replace(" ", "-");
             FirstName = firstName;
             LastName = lastName;
             Email = email;

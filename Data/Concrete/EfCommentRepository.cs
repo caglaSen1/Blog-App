@@ -30,9 +30,24 @@ namespace BlogApp.Data.Concrete{
             return comment;
         }
 
-        public void CreateComment(Comment comment)
+        public async Task<Comment> GetByUrl(string url)
+        {
+            Comment comment = await _context.Comments
+            .Include(c => c.User)
+            .FirstOrDefaultAsync(c => c.Url == url)
+                         ?? throw new KeyNotFoundException($"A comment with the URL {url} was not found.");
+            return comment;
+        }
+
+        public void Create(Comment comment)
         {
             _context.Comments.Add(comment);
+            _context.SaveChanges();
+        }
+
+        public void Delete(Comment comment)
+        {
+            _context.Comments.Remove(comment);
             _context.SaveChanges();
         }
     }

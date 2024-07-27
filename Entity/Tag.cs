@@ -7,13 +7,13 @@ namespace BlogApp.Entity
         [Key]
         [Display(Name = "Tag Id")]
         public int Id { get; set; }
+        
+        [Display(Name = "Blog Url")]
+        public string Url { get; set; }
 
         [Display(Name = "Tag Name")]
         [Required(ErrorMessage = "Name is required.")]
         public string Name { get; set; } = null!;
-
-        [Display(Name = "Blog Url")]
-        public string Url { get; set; }
 
         [Display(Name = "Tag Color")]
         public TagColors? Color { get; set; }

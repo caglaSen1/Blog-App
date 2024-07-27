@@ -49,6 +49,9 @@ namespace BlogApp.Controllers
                 if (_blogBusinessRules.AnyBlogExistWithTitle(model.BlogTitle) == true)
                 {
                     ModelState.AddModelError("", "Bu başlıkta bir blog bulunuyor, lütfen başka bir başlık giriniz.");
+
+                    model.Tags = await _tagRepository.GetAll();
+
                     return View(model);
                 }
                 //const int maxFileSize = 2 * 1024;
@@ -153,7 +156,7 @@ namespace BlogApp.Controllers
 
             var comment = new Comment(text, blogId, userId);
 
-            _commentRepository.CreateComment(comment);
+            _commentRepository.Create(comment);
 
             return Json(new
             {
@@ -203,9 +206,13 @@ namespace BlogApp.Controllers
         [Authorize]
         public async Task<IActionResult> Edit(string url, BlogEditViewModel model, IFormFile? imageFile)
         {
-            if (_blogBusinessRules.AnyBlogExistWithTitle(model.BlogTitle) == true)
+            var oldBlog = await _blogRepository.GetByUrl(url);
+            var oldTitle = oldBlog.Title;
+
+            if ((_blogBusinessRules.AnyBlogExistWithTitle(model.BlogTitle) == true) && (oldTitle != model.BlogTitle))
             {
                 ModelState.AddModelError("", "Bu başlıkta bir blog bulunuyor, lütfen başka bir başlık giriniz.");
+                model.Tags = await _tagRepository.GetAll();
                 return View(model);
             }
 
@@ -268,7 +275,7 @@ namespace BlogApp.Controllers
             {
                 return Json(new { error = "Geçersiz kullanıcı ID." });
             }
-            
+
             var pagedBlogs = await _blogRepository.GetPagedBlogs(pageNumber, pageSize, tagUrl, searchString, userId);
 
             var viewModel = new BlogViewModel

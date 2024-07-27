@@ -122,22 +122,6 @@ namespace BlogApp.Controllers
             return View("DeleteConfirm", blog);
         }
 
-        [HttpPost]
-        [Authorize]
-        public async Task<IActionResult> Delete(int id)
-        {
-            var blogToDelete = await _blogRepository.GetById(id);
-
-            if (blogToDelete == null)
-            {
-                return NotFound();
-            }
-
-            _blogRepository.Delete(blogToDelete);
-
-            TempData["SuccessMessage"] = "Blog başarıyla silindi.";
-            return RedirectToAction("Home");
-        }
 
         [Authorize]
         public async Task<IActionResult> CreateTag()
@@ -182,8 +166,75 @@ namespace BlogApp.Controllers
                        .ToList();
 
 
-            TempData["Message"] = "Etiket başarıyla oluşturuldu.";
             return View(model);
+        }
+
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> DeleteBlog(string url)
+        {
+            var blogToDelete = await _blogRepository.GetByUrl(url);
+
+            if (blogToDelete == null)
+            {
+                return NotFound();
+            }
+
+            _blogRepository.Delete(blogToDelete);
+
+            TempData["SuccessMessage"] = "Blog başarıyla silindi.";
+            return RedirectToAction("Home");
+        }
+
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> DeleteUser(string url)
+        {
+            var userToDelete = await _userRepository.GetByUrl(url);
+
+            if (userToDelete == null)
+            {
+                return NotFound();
+            }
+
+            _userRepository.Delete(userToDelete);
+
+            TempData["SuccessMessage"] = "Kullanıcı başarıyla silindi.";
+            return RedirectToAction("Home");
+        }
+
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> DeleteTag(string url)
+        {
+            var tagToDelete = await _tagRepository.GetByUrl(url);
+
+            if (tagToDelete == null)
+            {
+                return NotFound();
+            }
+
+            _tagRepository.Delete(tagToDelete);
+
+            TempData["SuccessMessage"] = "Etiket başarıyla silindi.";
+            return RedirectToAction("Home");
+        }
+
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> DeleteComment(string url)
+        {
+            var commentToDelete = await _commentRepository.GetByUrl(url);
+
+            if (commentToDelete == null)
+            {
+                return NotFound();
+            }
+
+            _commentRepository.Delete(commentToDelete);
+
+            TempData["SuccessMessage"] = "Yorum başarıyla silindi.";
+            return RedirectToAction("Home");
         }
 
     }

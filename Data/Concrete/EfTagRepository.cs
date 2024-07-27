@@ -33,6 +33,13 @@ namespace BlogApp.Data.Concrete
             return tag;
         }
 
+        public async Task<Tag> GetByUrl(string url)
+        {
+            Tag tag = await _context.Tags.FirstOrDefaultAsync(t => t.Url == url)
+                        ?? throw new KeyNotFoundException($"A tag with the url {url} was not found.");
+            return tag;
+        }
+
         public async Task<IEnumerable<Tag>> GetByIds(List<int> tagIds){
             return await _context.Tags.Where(t => tagIds.Contains(t.Id)).ToListAsync();
         }
@@ -51,6 +58,12 @@ namespace BlogApp.Data.Concrete
         public void Add(Tag entity)
         {
             _context.Tags.Add(entity);
+            _context.SaveChanges();
+        }
+
+        public void Delete(Tag tag)
+        {
+            _context.Tags.Remove(tag);
             _context.SaveChanges();
         }
 
