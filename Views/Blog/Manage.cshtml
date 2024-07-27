@@ -22,7 +22,7 @@
 
 <div class="container py-5">
     <div class="row">
-        @foreach (var blog in Model.Blogs)
+        @foreach (var blog in Model.PagedBlogs.Items)
         {
             <div class="card m-3 shadow" id="@blog.Id" style="width: 20rem; border-radius: 10px; padding: 0;">
                 <img src="~/img/@blog.Image" class="card-img-top" alt="..."
@@ -44,22 +44,28 @@
     </div>
 </div>
 
-@if (Model.Blogs.Any())
+@if (Model.PagedBlogs.Items.Count > 0)
 {
     <br>
     <nav aria-label="Page navigation example">
-        <ul class="pagination justify-content-center">
-            <li class="page-item disabled">
-                <a class="page-link">Previous</a>
-            </li>
-            <li class="page-item"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item">
-                <a class="page-link" href="#">Next</a>
-            </li>
-        </ul>
-    </nav>
+            <ul class="pagination justify-content-center">
+                <li class="page-item @(Model.PagedBlogs.PageNumber == 1 ? "disabled" : "")">
+                    <a class="page-link"
+                        href="@Url.Action("List", new { pageNumber = Model.PagedBlogs.PageNumber - 1, pageSize = Model.PagedBlogs.PageSize, tagUrl = Model.SelectedTagUrl, searchString = Model.SearchString })">Previous</a>
+                </li>
+                @for (int i = 1; i <= Model.PagedBlogs.TotalPages; i++)
+                {
+                    <li class="page-item @(Model.PagedBlogs.PageNumber == i ? "active" : "")">
+                        <a class="page-link"
+                            href="@Url.Action("List", new { pageNumber = i, pageSize = Model.PagedBlogs.PageSize, tagUrl = Model.SelectedTagUrl, searchString = Model.SearchString })">@i</a>
+                    </li>
+                }
+                <li class="page-item @(Model.PagedBlogs.PageNumber == Model.PagedBlogs.TotalPages ? "disabled" : "")">
+                    <a class="page-link"
+                        href="@Url.Action("List", new { pageNumber = Model.PagedBlogs.PageNumber + 1, pageSize = Model.PagedBlogs.PageSize, tagUrl = Model.SelectedTagUrl, searchString = Model.SearchString })">Next</a>
+                </li>
+            </ul>
+        </nav>
 }
 else
 {

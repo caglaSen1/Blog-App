@@ -21,9 +21,14 @@ namespace BlogApp.Data.Concrete
             .ToListAsync();
         }
 
-        public async Task<PagedResult<Blog>> GetPagedBlogs(int pageNumber, int pageSize, string tagUrl, string searchString)
+        public async Task<PagedResult<Blog>> GetPagedBlogs(int pageNumber, int pageSize, string tagUrl, string searchString, int? userId)
         {
             var query = _context.Blogs.AsQueryable();
+            
+            if (userId != null)
+            {
+                query = query.Where(b => b.UserId == userId).AsQueryable();
+            }
 
             if (!string.IsNullOrEmpty(tagUrl))
             {
@@ -31,10 +36,10 @@ namespace BlogApp.Data.Concrete
             }
 
             if (!string.IsNullOrEmpty(searchString))
-    {
-        var lowerSearchString = searchString.ToLower();
-        query = query.Where(b => b.Title.ToLower().Contains(lowerSearchString) || b.Content.ToLower().Contains(lowerSearchString));
-    }
+            {
+                var lowerSearchString = searchString.ToLower();
+                query = query.Where(b => b.Title.ToLower().Contains(lowerSearchString) || b.Content.ToLower().Contains(lowerSearchString));
+            }
 
             var totalItems = await query.CountAsync();
             var items = await query.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToListAsync();
@@ -58,6 +63,33 @@ namespace BlogApp.Data.Concrete
                          ?? throw new KeyNotFoundException($"A blog with the ID {id} was not found.");
             return blog;
         }
+        /*
+                public async Task<PagedResult<Blog>> GetPagedBlogsByUserId(int userId, int pageNumber, int pageSize, string tagUrl, string searchString)
+                {
+                    var query = _context.Blogs.Where(b => b.UserId == userId).AsQueryable();
+
+                    if (!string.IsNullOrEmpty(tagUrl))
+                    {
+                        query = query.Where(b => b.Tags.Any(t => t.Url == tagUrl));
+                    }
+
+                    if (!string.IsNullOrEmpty(searchString))
+                    {
+                        var lowerSearchString = searchString.ToLower();
+                        query = query.Where(b => b.Title.ToLower().Contains(lowerSearchString) || b.Content.ToLower().Contains(lowerSearchString));
+                    }
+
+                    var totalItems = await query.CountAsync();
+                    var items = await query.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToListAsync();
+
+                    return new PagedResult<Blog>
+                    {
+                        Items = items,
+                        TotalItems = totalItems,
+                        PageNumber = pageNumber,
+                        PageSize = pageSize
+                    };
+                }*/
 
         public async Task<Blog> GetByUrl(string url)
         {

@@ -125,10 +125,7 @@ namespace BlogApp.Controllers
 
         public async Task<IActionResult> List(string? tagUrl, string? searchString, int pageNumber = 1, int pageSize = 5)
         {
-
-            var pagedBlogs = await _blogRepository.GetPagedBlogs(pageNumber, pageSize, tagUrl, searchString);
-
-
+            var pagedBlogs = await _blogRepository.GetPagedBlogs(pageNumber, pageSize, tagUrl, searchString, null);
 
             var viewModel = new BlogViewModel
             {
@@ -139,7 +136,6 @@ namespace BlogApp.Controllers
             };
 
             return View(viewModel);
-
         }
 
         [HttpPost]
@@ -264,34 +260,26 @@ namespace BlogApp.Controllers
         }
 
         [Authorize]
-        public async Task<IActionResult> Manage(string tagUrl, string searchString)
+        public async Task<IActionResult> Manage(string? tagUrl, string? searchString, int pageNumber = 1, int pageSize = 5)
         {
             var userIdValue = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var tags = await _tagRepository.GetAll();
 
             if (!int.TryParse(userIdValue, out int userId))
             {
                 return Json(new { error = "Geçersiz kullanıcı ID." });
             }
+            
+            var pagedBlogs = await _blogRepository.GetPagedBlogs(pageNumber, pageSize, tagUrl, searchString, userId);
 
-            var blogs = await _blogRepository.GetBlogsByUserId(userId);
-
-            if (!string.IsNullOrEmpty(tagUrl))
+            var viewModel = new BlogViewModel
             {
-                blogs = blogs.Where(b => b.Tags.Any(t => t.Url == tagUrl)).ToList();
-            }
+                PagedBlogs = pagedBlogs,
+                Tags = await _tagRepository.GetAll(),
+                SelectedTagUrl = tagUrl,
+                SearchString = searchString
+            };
 
-            if (!string.IsNullOrEmpty(searchString))
-            {
-                blogs = blogs.Where(b => b.Title.Contains(searchString, StringComparison.OrdinalIgnoreCase)
-                                      || b.Content.Contains(searchString, StringComparison.OrdinalIgnoreCase)).ToList();
-            }
-
-            return View("Manage", new BlogViewModel
-            {
-                Blogs = blogs,
-                Tags = tags
-            });
+            return View("Manage", viewModel);
         }
 
         [Authorize]
