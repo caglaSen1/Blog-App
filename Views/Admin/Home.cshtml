@@ -158,7 +158,7 @@
                             @foreach (var item in Model.Comments)
                             {
                                 <tr>
-                                    <td>@item.User</td>
+                                    <td>@item.User.UserName</td>
                                     <td>@item.Text</td>
                                     <td>@item.CreatedAt</td>
                                     <td>@item.IsActive</td>
