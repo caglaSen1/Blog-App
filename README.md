@@ -5,7 +5,6 @@ A blog platform with user interactivity.
 
 ### Login Page
 ![Login_Page](https://github.com/user-attachments/assets/54f5c095-9ddd-4421-be7f-dfba029cd27e)
-<img src="https://github.com/user-attachments/assets/54f5c095-9ddd-4421-be7f-dfba029cd27e" alt="Login_Page" style="width:1100px;"/>
 <hr>
 
 ### Register Page
